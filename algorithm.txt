@@ -1,0 +1,10 @@
+So my plan for now is a parallelized breathfirst search. The problem is, we need this to be more of a parallelized BUILD. The tree class, or whatever we call the paralell section needs to
+build the tree up in parallel, then the computer should just get a number as a result.
+
+So the basic algorithm should be:
+>SuperTicTacToe calls GetComputerInput() to get the computer's move
+>Computer creates a minmaxTree object with the current board as input.
+>The min max tree is then built in parallel, giving the root node (the computer's current board state) a number that designates the best move to make.
+
+I am not 100% sure of how we go about building it in parallel, though I think looking at KD trees may be useful. If I recall this is what they are used for.
+	
