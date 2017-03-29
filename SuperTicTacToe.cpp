@@ -2,13 +2,13 @@
 using namespace std;
 
 //WEIGHTS
-const int smallBoardWin = 5;
-const int middleBoardWin = 10;
-const int cornerBoardWin = 3;
-const int centerSquareSmallBoard = 3;
-const int squareInCenterBoard = 3;
-const int partOfALine = 4;
-const int partOfASmallLine = 2;
+const int SMALL_BOARD_WIN = 5;
+const int MIDDLE_BOARD_WIN = 10;
+const int CORNER_BOARD_WIN = 3;
+const int CENTER_SQUARE_IN_SMALL_BOARD = 3;
+const int SQUARE_IN_CENTER_BOARD = 3;
+const int TWO_PARTS_OF_A_WIN = 4;
+const int TWO_PARTS_OF_A_BOARD = 2;
 
 //Constructor
 SuperTicTacToe::SuperTicTacToe() :
