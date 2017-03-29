@@ -1,5 +1,15 @@
 #include "SuperTicTacToe.h"
 using namespace std;
+
+//WEIGHTS
+const int smallBoardWin = 5;
+const int middleBoardWin = 10;
+const int cornerBoardWin = 3;
+const int centerSquareSmallBoard = 3;
+const int squareInCenterBoard = 3;
+const int partOfALine = 4;
+const int partOfASmallLine = 2;
+
 //Constructor
 SuperTicTacToe::SuperTicTacToe() :
     cellKnown(false),
