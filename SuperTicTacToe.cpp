@@ -1,15 +1,15 @@
 #include "SuperTicTacToe.h"
 using namespace std;
 //Constructor
-SuperTicTacToe::SuperTicTacToe()
+SuperTicTacToe::SuperTicTacToe() :
+    cellKnown(false),
+    m_cell(-1),
+    gameWon(false)
 {
   for(int i = 0; i < BOARD_SIZE; i++)
     {
       board[i] = "---------";
     }
-  m_cell = -1;
-  cellKnown = false;
-  gameWon = false;
 }
 
 //plays the game
@@ -107,7 +107,7 @@ void SuperTicTacToe::getPlayerInput()
 	  cell = -1;
 	}
     }
-  changeBoardPiece(cell,space,"X");
+  changeBoardPiece(cell,space, PIECE_X);
     
 }
 
@@ -150,7 +150,7 @@ void SuperTicTacToe::getCompInput()
 	    }
 	}
     }
-  changeBoardPiece(cell,space,"O");
+  changeBoardPiece(cell,space, PIECE_O);
 }
 
 void SuperTicTacToe::checkGameOver()
@@ -197,7 +197,7 @@ void SuperTicTacToe::checkGameOver()
       gameWon = true;
     }
 }
-void SuperTicTacToe::checkCellWon(int outerTile, string piece)
+void SuperTicTacToe::checkCellWon(int outerTile, Piece piece)
 {
   bool won = false;
   //horizontal
@@ -241,7 +241,7 @@ void SuperTicTacToe::checkCellWon(int outerTile, string piece)
 
   if(won)
     {
-      if(piece == "X")
+      if(piece == PIECE_X)
 	{
 	  board[outerTile] = CELL_X;
 	}
@@ -253,12 +253,11 @@ void SuperTicTacToe::checkCellWon(int outerTile, string piece)
 }
 
 //changes a piece of the board based on input
-void SuperTicTacToe::changeBoardPiece(int outerTile, int innerTile, string piece)
+void SuperTicTacToe::changeBoardPiece(int outerTile, int innerTile, Piece piece)
 {
 
   //put players symbol in the give place
-  board[outerTile].erase(innerTile,1);
-  board[outerTile].insert(innerTile,piece);
+  board[outerTile].at(innerTile) = piece;
   
   //if the player won with that move, convert the cell tile
   //into an X or an O
