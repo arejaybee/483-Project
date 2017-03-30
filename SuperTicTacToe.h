@@ -6,6 +6,7 @@
 #include <vector>
 using namespace std;
 const int BOARD_SIZE = 9;
+const int NUM_LAYERS = 3;
 const string CELL_X = "\\ / x / \\";
 const string CELL_O = " * * * * ";
 enum Piece {PIECE_X = 'X', PIECE_O = 'O'};
