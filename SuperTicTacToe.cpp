@@ -12,6 +12,7 @@ const int TWO_PARTS_OF_A_BOARD = 2;
 
 //Constructor
 SuperTicTacToe::SuperTicTacToe() :
+    board(BOARD_SIZE),
     cellKnown(false),
     m_cell(-1),
     gameWon(false)
@@ -267,7 +268,7 @@ void SuperTicTacToe::changeBoardPiece(int outerTile, int innerTile, Piece piece)
 {
 
   //put players symbol in the give place
-  board[outerTile].at(innerTile) = piece;
+  board.at(outerTile).at(innerTile) = piece;
   
   //if the player won with that move, convert the cell tile
   //into an X or an O

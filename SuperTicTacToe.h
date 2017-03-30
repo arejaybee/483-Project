@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 const int BOARD_SIZE = 9;
 const string CELL_X = "\\ / x / \\";
@@ -34,7 +35,7 @@ class SuperTicTacToe
   void checkCellWon(int outerTile, Piece piece);
   void checkGameOver();
  private:
-  string board[BOARD_SIZE]; //the overall board, each inner board will be a string
+  vector<string> board; //the overall board, each inner board will be a string
   bool cellKnown;
   int m_cell;
   bool gameWon;
