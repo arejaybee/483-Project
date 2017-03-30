@@ -19,7 +19,7 @@ SuperTicTacToe::SuperTicTacToe() :
 {
   for(int i = 0; i < BOARD_SIZE; i++)
     {
-      board[i] = "---------";
+      board.at(i) = "---------";
     }
 }
 
@@ -68,7 +68,7 @@ void SuperTicTacToe::printBoard()
 	  cout<<" || ";
 	  for(int k = 0; k < 3; k++)
 	    {	   
-	      cout<<board[k+i][0+(j*3)]<<" "<<board[k+i][1+(j*3)]<<" "<<board[k+i][2+(j*3)]<<" ";
+	      cout<<board.at(k+i).at(0+(j*3))<<" "<<board.at(k+i).at(1+(j*3))<<" "<<board.at(k+i).at(2+(j*3))<<" ";
 	      cout<<"|| ";
 	    }
 	  cout<<endl;
@@ -106,7 +106,7 @@ void SuperTicTacToe::getPlayerInput()
 	{
 	  inputIsValid = false;
 	}
-      else if(board[cell][space] == '-')
+      else if(board.at(cell).at(space) == '-')
 	{
 	  inputIsValid = true;
 	}
@@ -137,7 +137,7 @@ void SuperTicTacToe::getCompInput()
 	  //picks a space number
 	  for(int i = 0; i < BOARD_SIZE; i++)
 	    {
-	      if(board[m_cell][i] == '-')
+	      if(board.at(m_cell).at(i) == '-')
 		{
 		  inputIsValid = true;
 		  cell = m_cell;
@@ -151,7 +151,7 @@ void SuperTicTacToe::getCompInput()
 	    {
 	      for(int j = 0; j < BOARD_SIZE; j++)
 		{
-		  if(board[i][j] == '-')
+		  if(board.at(i).at(j) == '-')
 		    {
 		      inputIsValid = true;
 		      cell = i;
@@ -168,38 +168,38 @@ void SuperTicTacToe::checkGameOver()
 {
   bool won = false;
   //horizontal
-  if(board[0] == board[1] && board[0] == board[2] && (board[0] == CELL_X || board[0] == CELL_O))
+  if(board.at(0) == board.at(1) && board.at(0) == board.at(2) && (board.at(0) == CELL_X || board.at(0) == CELL_O))
     {
       won = true;
     }
-  if(board[3] == board[4] && board[3] == board[5] && (board[3] == CELL_X || board[3] == CELL_O))
+  if(board.at(3) == board.at(4) && board.at(3) == board.at(5) && (board.at(3) == CELL_X || board.at(3) == CELL_O))
     {
       won = true;
     }
-  if(board[6] == board[7] && board[6] == board[8] && (board[6] == CELL_X || board[6] == CELL_O))
+  if(board.at(6) == board.at(7) && board.at(6) == board.at(8) && (board.at(6) == CELL_X || board.at(6) == CELL_O))
     {
       won = true;
     }
 
   //vertical
-  if(board[0] == board[3] && board[0] == board[6] && (board[0] == CELL_X || board[0] == CELL_O))
+  if(board.at(0) == board.at(3) && board.at(0) == board.at(6) && (board.at(0) == CELL_X || board.at(0) == CELL_O))
     {
       won = true;
     }
-  if(board[1] == board[4] && board[1] == board[7] && (board[1] == CELL_X || board[1] == CELL_O))
+  if(board.at(1) == board.at(4) && board.at(1) == board.at(7) && (board.at(1) == CELL_X || board.at(1) == CELL_O))
     {
       won = true;
     }
-  if(board[2] == board[5] && board[2] == board[8] && (board[2] == CELL_X || board[2] == CELL_O))
+  if(board.at(2) == board.at(5) && board.at(2) == board.at(8) && (board.at(2) == CELL_X || board.at(2) == CELL_O))
     {
       won = true;
     }
   //diagnol
-  if(board[0] == board[5] && board[0] == board[8] && (board[0] == CELL_X || board[0] == CELL_O))
+  if(board.at(0) == board.at(5) && board.at(0) == board.at(8) && (board.at(0) == CELL_X || board.at(0) == CELL_O))
     {
       won = true;
     }
-  if(board[2] == board[5] && board[2] == board[7] && (board[0] == CELL_X || board[0] == CELL_O))
+  if(board.at(2) == board.at(5) && board.at(2) == board.at(7) && (board.at(0) == CELL_X || board.at(0) == CELL_O))
     {
       won = true;
     }
@@ -213,39 +213,39 @@ void SuperTicTacToe::checkCellWon(int outerTile, Piece piece)
   bool won = false;
   //horizontal
 
-  if(board[outerTile][0] == board[outerTile][1] && board[outerTile][0] == board[outerTile][2] && (board[outerTile][0] != '-' && board[outerTile][0] != ' '))
+  if(board.at(outerTile).at(0) == board.at(outerTile).at(1) && board.at(outerTile).at(0) == board.at(outerTile).at(2) && (board.at(outerTile).at(0) != '-' && board.at(outerTile).at(0) != ' '))
     {
       won = true;
     }
-  if(board[outerTile][3] == board[outerTile][4] && board[outerTile][3] == board[outerTile][5] && (board[outerTile][3] != '-' && board[outerTile][3] != ' '))
+  if(board.at(outerTile).at(3) == board.at(outerTile).at(4) && board.at(outerTile).at(3) == board.at(outerTile).at(5) && (board.at(outerTile).at(3) != '-' && board.at(outerTile).at(3) != ' '))
     {
       won = true;
     }
-  if(board[outerTile][6] == board[outerTile][7] && board[outerTile][6] == board[outerTile][8] && board[outerTile][6] != '-' && board[outerTile][6] != ' ')
+  if(board.at(outerTile).at(6) == board.at(outerTile).at(7) && board.at(outerTile).at(6) == board.at(outerTile).at(8) && board.at(outerTile).at(6) != '-' && board.at(outerTile).at(6) != ' ')
     {
       won = true;
     }
 
   //vertical
-  if(board[outerTile][0] == board[outerTile][3] && board[outerTile][0] == board[outerTile][6] && (board[outerTile][0] != '-' && board[outerTile][0] != ' '))
+  if(board.at(outerTile).at(0) == board.at(outerTile).at(3) && board.at(outerTile).at(0) == board.at(outerTile).at(6) && (board.at(outerTile).at(0) != '-' && board.at(outerTile).at(0) != ' '))
     {
       won = true;
     }
-  if(board[outerTile][1] == board[outerTile][4] && board[outerTile][1] == board[outerTile][7] && (board[outerTile][1] != '-' && board[outerTile][1] != ' '))
+  if(board.at(outerTile).at(1) == board.at(outerTile).at(4) && board.at(outerTile).at(1) == board.at(outerTile).at(7) && (board.at(outerTile).at(1) != '-' && board.at(outerTile).at(1) != ' '))
     {
       won = true;
     }
-  if(board[outerTile][2] == board[outerTile][5] && board[outerTile][2] == board[outerTile][8] && (board[outerTile][2] != '-' && board[outerTile][2] != ' '))
+  if(board.at(outerTile).at(2) == board.at(outerTile).at(5) && board.at(outerTile).at(2) == board.at(outerTile).at(8) && (board.at(outerTile).at(2) != '-' && board.at(outerTile).at(2) != ' '))
     {
       won = true;
     }
 
   //diaganol
-  if(board[outerTile][0] == board[outerTile][4] && board[outerTile][0] == board[outerTile][8] && (board[outerTile][0] != '-' && board[outerTile][0] != ' '))
+  if(board.at(outerTile).at(0) == board.at(outerTile).at(4) && board.at(outerTile).at(0) == board.at(outerTile).at(8) && (board.at(outerTile).at(0) != '-' && board.at(outerTile).at(0) != ' '))
     {
       won = true;
     }
-  if(board[outerTile][2] == board[outerTile][4] && board[outerTile][2] == board[outerTile][6] && (board[outerTile][2] != '-' && board[outerTile][2] != ' '))
+  if(board.at(outerTile).at(2) == board.at(outerTile).at(4) && board.at(outerTile).at(2) == board.at(outerTile).at(6) && (board.at(outerTile).at(2) != '-' && board.at(outerTile).at(2) != ' '))
     {
       won = true;
     }
@@ -254,11 +254,11 @@ void SuperTicTacToe::checkCellWon(int outerTile, Piece piece)
     {
       if(piece == PIECE_X)
 	{
-	  board[outerTile] = CELL_X;
+	  board.at(outerTile) = CELL_X;
 	}
       else
 	{
-	  board[outerTile] = CELL_O;
+	  board.at(outerTile) = CELL_O;
 	}
     }  
 }
@@ -280,7 +280,7 @@ void SuperTicTacToe::changeBoardPiece(int outerTile, int innerTile, Piece piece)
   bool flag = false;
   for(int i = 0; i < BOARD_SIZE; i++)
     {
-      if(board[innerTile][i] == '-')
+      if(board.at(innerTile).at(i) == '-')
 	{
 	  flag = true;
 	}
