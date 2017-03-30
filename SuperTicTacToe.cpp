@@ -2,11 +2,7 @@
 using namespace std;
 
 //Constructor
-SuperTicTacToe::SuperTicTacToe() :
-    board(BOARD_SIZE),
-    cellKnown(false),
-    m_cell(-1),
-    gameWon(false)
+SuperTicTacToe::SuperTicTacToe() : board(BOARD_SIZE), cellKnown(false), m_cell(-1), gameWon(false)
 {
     for (int i = 0; i < BOARD_SIZE; i++) {
         board.at(i) = "---------";
@@ -54,8 +50,9 @@ void SuperTicTacToe::printBoard()
             cout << " || ";
 
             for (int k = 0; k < 3; k++) {
-                cout << board.at(k + i).at(0 + (j * 3)) << " " << board.at(k + i).at(1 +
-                        (j * 3)) << " " << board.at(k + i).at(2 + (j * 3)) << " ";
+                cout << board.at(k + i).at(0 + (j * 3)) << " " <<
+                        board.at(k + i).at(1 + (j * 3)) << " " <<
+                        board.at(k + i).at(2 + (j * 3)) << " ";
                 cout << "|| ";
             }
 
@@ -83,7 +80,8 @@ void SuperTicTacToe::getPlayerInput()
             cout << "Enter a space to play in: ";
             cin >> space;
             cell = m_cell;
-        } else {
+        }
+        else {
             cout << "Enter a cell to play in followed by a space to play in: ";
             cin >> cell;
             cin >> space;
@@ -91,7 +89,8 @@ void SuperTicTacToe::getPlayerInput()
 
         if (cell < 0 || cell > 9 || space < 0 || space > 9) {
             inputIsValid = false;
-        } else if (board.at(cell).at(space) == '-') {
+        }
+        else if (board.at(cell).at(space) == '-') {
             inputIsValid = true;
         }
 
@@ -125,7 +124,8 @@ void SuperTicTacToe::getCompInput()
                     space = i;
                 }
             }
-        } else {
+        }
+        else {
             for (int i = 0; i < BOARD_SIZE; i++) {
                 for (int j = 0; j < BOARD_SIZE; j++) {
                     if (board.at(i).at(j) == '-') {
@@ -199,51 +199,59 @@ void SuperTicTacToe::checkCellWon(int outerTile, Piece piece)
 
     if (board.at(outerTile).at(0) == board.at(outerTile).at(1)
             && board.at(outerTile).at(0) == board.at(outerTile).at(2)
-            && (board.at(outerTile).at(0) != '-' && board.at(outerTile).at(0) != ' ')) {
+            && (board.at(outerTile).at(0) != '-'
+            && board.at(outerTile).at(0) != ' ')) {
         won = true;
     }
 
     if (board.at(outerTile).at(3) == board.at(outerTile).at(4)
             && board.at(outerTile).at(3) == board.at(outerTile).at(5)
-            && (board.at(outerTile).at(3) != '-' && board.at(outerTile).at(3) != ' ')) {
+            && (board.at(outerTile).at(3) != '-'
+            && board.at(outerTile).at(3) != ' ')) {
         won = true;
     }
 
     if (board.at(outerTile).at(6) == board.at(outerTile).at(7)
             && board.at(outerTile).at(6) == board.at(outerTile).at(8)
-            && board.at(outerTile).at(6) != '-' && board.at(outerTile).at(6) != ' ') {
+            && board.at(outerTile).at(6) != '-'
+            && board.at(outerTile).at(6) != ' ') {
         won = true;
     }
 
     //vertical
     if (board.at(outerTile).at(0) == board.at(outerTile).at(3)
             && board.at(outerTile).at(0) == board.at(outerTile).at(6)
-            && (board.at(outerTile).at(0) != '-' && board.at(outerTile).at(0) != ' ')) {
+            && (board.at(outerTile).at(0) != '-'
+            && board.at(outerTile).at(0) != ' ')) {
         won = true;
     }
 
     if (board.at(outerTile).at(1) == board.at(outerTile).at(4)
             && board.at(outerTile).at(1) == board.at(outerTile).at(7)
-            && (board.at(outerTile).at(1) != '-' && board.at(outerTile).at(1) != ' ')) {
+            && (board.at(outerTile).at(1) != '-'
+            && board.at(outerTile).at(1) != ' ')) {
         won = true;
     }
 
     if (board.at(outerTile).at(2) == board.at(outerTile).at(5)
             && board.at(outerTile).at(2) == board.at(outerTile).at(8)
-            && (board.at(outerTile).at(2) != '-' && board.at(outerTile).at(2) != ' ')) {
+            && (board.at(outerTile).at(2) != '-'
+            && board.at(outerTile).at(2) != ' ')) {
         won = true;
     }
 
     //diaganol
     if (board.at(outerTile).at(0) == board.at(outerTile).at(4)
             && board.at(outerTile).at(0) == board.at(outerTile).at(8)
-            && (board.at(outerTile).at(0) != '-' && board.at(outerTile).at(0) != ' ')) {
+            && (board.at(outerTile).at(0) != '-'
+            && board.at(outerTile).at(0) != ' ')) {
         won = true;
     }
 
     if (board.at(outerTile).at(2) == board.at(outerTile).at(4)
             && board.at(outerTile).at(2) == board.at(outerTile).at(6)
-            && (board.at(outerTile).at(2) != '-' && board.at(outerTile).at(2) != ' ')) {
+            && (board.at(outerTile).at(2) != '-'
+            && board.at(outerTile).at(2) != ' ')) {
         won = true;
     }
 
