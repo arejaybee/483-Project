@@ -10,6 +10,15 @@ const string CELL_X = "\\ / x / \\";
 const string CELL_O = " * * * * ";
 enum Piece {PIECE_X = 'X', PIECE_O = 'O'};
 
+//WEIGHTS
+const int SMALL_BOARD_WIN = 5;
+const int MIDDLE_BOARD_WIN = 10;
+const int CORNER_BOARD_WIN = 3;
+const int CENTER_SQUARE_IN_SMALL_BOARD = 3;
+const int SQUARE_IN_CENTER_BOARD = 3;
+const int TWO_PARTS_OF_A_WIN = 4;
+const int TWO_PARTS_OF_A_BOARD = 2;
+
 class SuperTicTacToe
 {
  public:
