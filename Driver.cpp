@@ -1,7 +1,7 @@
 #include "SuperTicTacToe.h"
 int main()
 {
-  SuperTicTacToe sttt;
-  sttt.play();
-  return 0;
+    SuperTicTacToe sttt;
+    sttt.play();
+    return 0;
 }
