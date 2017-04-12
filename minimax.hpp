@@ -7,8 +7,7 @@ class MinimaxState
 public:
     class const_iterator;
 
-    bool is_leaf() const;
-    bool get_leaf_score() const;
+    bool get_node_score() const;
 
     const_iterator begin() const;
     const_iterator end() const;
