@@ -48,7 +48,7 @@ minimax_evaluate(MinimaxState &head)
 	}
     }
 
-    if (result.second == std::numeric_limits<int>::min())
+    if (!found)
 	throw std::logic_error("failed");
 
     return result;
