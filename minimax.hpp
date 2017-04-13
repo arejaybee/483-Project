@@ -2,23 +2,21 @@
 #define MINIMAX_HPP
 
 
+#include <cstddef>
+
+
 class MinimaxState
 {
-public:
-    class const_iterator;
+    public:
+        virtual ~MinimaxState();
 
-    bool get_node_score() const;
+        virtual bool is_leaf() const = 0;
+        virtual int get_node_score() const = 0;
 
-    const_iterator begin() const;
-    const_iterator end() const;
-};
+        virtual std::size_t get_number_of_children() const = 0;
 
-
-class MinimaxState::const_iterator
-{
-public:
-    const_iterator &operator++();
-    const MinimaxState &operator*();
+        // will be freed upon destruction
+        virtual MinimaxState *get_child(std::size_t index) = 0;
 };
 
 
