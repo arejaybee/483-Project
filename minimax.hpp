@@ -19,4 +19,7 @@ public:
 };
 
 
+const MinimaxState &minimax_evaluate(const MinimaxState &head);
+
+
 #endif
