@@ -20,7 +20,6 @@ minimax_evaluate(MinimaxState &head)
 	throw std::invalid_argument("head is a leaf");
 
     std::pair<std::size_t, int> result(0, 0);
-    bool found = false;
 
     for (std::size_t i = 0; i < child_count; ++i) {
 	MinimaxState &child = head.get_child(i);
@@ -31,10 +30,9 @@ minimax_evaluate(MinimaxState &head)
 	else
 	    candidate = minimax_evaluate(child).second;
 
-	if (!found) {
+	if (i == 0) {
 	    result.first = i;
 	    result.second = candidate;
-	    found = true;
 	}
 
 	if (head.get_player() == MinimaxState::PLAYER_MIN) {
@@ -47,9 +45,6 @@ minimax_evaluate(MinimaxState &head)
 	    result.second = candidate;
 	}
     }
-
-    if (!found)
-	throw std::logic_error("failed");
 
     return result;
 }
