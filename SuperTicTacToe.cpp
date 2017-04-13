@@ -2,11 +2,9 @@
 using namespace std;
 
 //Constructor
-SuperTicTacToe::SuperTicTacToe() : board(BOARD_SIZE), cellKnown(false), m_cell(-1), gameWon(false)
+SuperTicTacToe::SuperTicTacToe()
 {
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        board.at(i) = "---------";
-    }
+    game = *(new GameState());
 }
 
 //plays the game
@@ -16,23 +14,23 @@ void SuperTicTacToe::play()
     printBoard();
 
     //keep playing until the game is over
-    while (!gameWon) {
+    while (!game.gameOver) {
         //player goes first
         getPlayerInput();
         printBoard();
-        checkGameOver();
+        game.checkGameOver();
 
         //if the player won, game can end and tell them they won
-        if (gameWon) {
+        if (game.gameOver) {
             cout << "Player wins!" << endl;
         }
         //let the computer go
         else {
             getCompInput();
-            checkGameOver();
+            game.checkGameOver();
             printBoard();
 
-            if (gameWon) {
+            if (game.gameOver) {
                 cout << "Computer wins!" << endl;
             }
         }
@@ -43,65 +41,45 @@ void SuperTicTacToe::play()
 //idk what I am doing, but it looks ok!
 void SuperTicTacToe::printBoard()
 {
-    cout << " _____________________________\n\n";
-
-    for (int i = 0; i < BOARD_SIZE; i += 3) {
-        for (int j = 0; j < 3; j++) {
-            cout << " || ";
-
-            for (int k = 0; k < 3; k++) {
-                cout << board.at(k + i).at(0 + (j * 3)) << " " <<
-                        board.at(k + i).at(1 + (j * 3)) << " " <<
-                        board.at(k + i).at(2 + (j * 3)) << " ";
-                cout << "|| ";
-            }
-
-            cout << endl;
-        }
-
-        if (i % 3 == 0) {
-            cout << " _____________________________\n\n";
-        }
-    }
-
-    cout << endl << endl;;
+    game.printBoard();
 }
 
 //gets input from player
 void SuperTicTacToe::getPlayerInput()
 {
     bool inputIsValid = false;
-    int cell = -1;
-    int space = -1;
+    Move m;
+    m.board = -1; //cell
+    m.square = -1; //space
 
     while (!inputIsValid) {
-        if (cellKnown) {
-            cout << "You are in cell: " << m_cell << endl;
+        if (game.cellKnown) {
+            cout << "You are in cell: " << game.m_cell << endl;
             cout << "Enter a space to play in: ";
-            cin >> space;
-            cell = m_cell;
+            cin >> m.square;
+            m.board = game.m_cell;
         }
         else {
             cout << "Enter a cell to play in followed by a space to play in: ";
-            cin >> cell;
-            cin >> space;
+            cin >> m.board;
+            cin >> m.square;
         }
 
-        if (cell < 0 || cell > 9 || space < 0 || space > 9) {
+        if (m.board < 0 || m.board > 9 || m.square < 0 || m.square > 9) {
             inputIsValid = false;
         }
-        else if (board.at(cell).at(space) == '-') {
+        else if (game.charAt(m) == '-') {
             inputIsValid = true;
         }
 
         if (!inputIsValid) {
             cout << "Invalid!" << endl;
-            space = -1;
-            cell = -1;
+            m.board = -1;
+            m.square = -1;
         }
     }
 
-    changeBoardPiece(cell, space, PIECE_X);
+    game.changeBoardPiece(m, PIECE_X);
 
 }
 
@@ -109,184 +87,43 @@ void SuperTicTacToe::getPlayerInput()
 void SuperTicTacToe::getCompInput()
 {
     bool inputIsValid = false;
-    int cell = -1;
-    int space = -1;
+    Move m;
+    m.board = -1; //cell
+    m.square = -1; //space
 
     while (!inputIsValid) {
-        if (cellKnown) {
-            cell = m_cell;
+        if (game.cellKnown) {
+            m.board = game.m_cell;
 
             //picks a space number
             for (int i = 0; i < BOARD_SIZE; i++) {
-                if (board.at(m_cell).at(i) == '-') {
+                m.board = game.m_cell;
+                m.square = i;
+                if (game.charAt(m) == '-') {
                     inputIsValid = true;
-                    cell = m_cell;
-                    space = i;
+                    m.board = game.m_cell;
+                    m.square = i;
                 }
             }
         }
         else {
             for (int i = 0; i < BOARD_SIZE; i++) {
                 for (int j = 0; j < BOARD_SIZE; j++) {
-                    if (board.at(i).at(j) == '-') {
+                    m.board = i;
+                    m.square = j;
+                    if (game.charAt(m) == '-') {
                         inputIsValid = true;
-                        cell = i;
-                        space = j;
+                        m.board = i;
+                        m.square = j;
                     }
                 }
             }
         }
     }
 
-    changeBoardPiece(cell, space, PIECE_O);
+    game.changeBoardPiece(m, PIECE_O);
 }
 
-void SuperTicTacToe::checkGameOver()
-{
-    bool won = false;
 
-    //horizontal
-    if (board.at(0) == board.at(1) && board.at(0) == board.at(2)
-            && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
-        won = true;
-    }
 
-    if (board.at(3) == board.at(4) && board.at(3) == board.at(5)
-            && (board.at(3) == CELL_X || board.at(3) == CELL_O)) {
-        won = true;
-    }
 
-    if (board.at(6) == board.at(7) && board.at(6) == board.at(8)
-            && (board.at(6) == CELL_X || board.at(6) == CELL_O)) {
-        won = true;
-    }
-
-    //vertical
-    if (board.at(0) == board.at(3) && board.at(0) == board.at(6)
-            && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
-        won = true;
-    }
-
-    if (board.at(1) == board.at(4) && board.at(1) == board.at(7)
-            && (board.at(1) == CELL_X || board.at(1) == CELL_O)) {
-        won = true;
-    }
-
-    if (board.at(2) == board.at(5) && board.at(2) == board.at(8)
-            && (board.at(2) == CELL_X || board.at(2) == CELL_O)) {
-        won = true;
-    }
-
-    //diagnol
-    if (board.at(0) == board.at(5) && board.at(0) == board.at(8)
-            && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
-        won = true;
-    }
-
-    if (board.at(2) == board.at(5) && board.at(2) == board.at(7)
-            && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
-        won = true;
-    }
-
-    if (won) {
-        gameWon = true;
-    }
-}
-void SuperTicTacToe::checkCellWon(int outerTile, Piece piece)
-{
-    bool won = false;
-    //horizontal
-
-    if (board.at(outerTile).at(0) == board.at(outerTile).at(1)
-            && board.at(outerTile).at(0) == board.at(outerTile).at(2)
-            && (board.at(outerTile).at(0) != '-'
-            && board.at(outerTile).at(0) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(3) == board.at(outerTile).at(4)
-            && board.at(outerTile).at(3) == board.at(outerTile).at(5)
-            && (board.at(outerTile).at(3) != '-'
-            && board.at(outerTile).at(3) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(6) == board.at(outerTile).at(7)
-            && board.at(outerTile).at(6) == board.at(outerTile).at(8)
-            && board.at(outerTile).at(6) != '-'
-            && board.at(outerTile).at(6) != ' ') {
-        won = true;
-    }
-
-    //vertical
-    if (board.at(outerTile).at(0) == board.at(outerTile).at(3)
-            && board.at(outerTile).at(0) == board.at(outerTile).at(6)
-            && (board.at(outerTile).at(0) != '-'
-            && board.at(outerTile).at(0) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(1) == board.at(outerTile).at(4)
-            && board.at(outerTile).at(1) == board.at(outerTile).at(7)
-            && (board.at(outerTile).at(1) != '-'
-            && board.at(outerTile).at(1) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(2) == board.at(outerTile).at(5)
-            && board.at(outerTile).at(2) == board.at(outerTile).at(8)
-            && (board.at(outerTile).at(2) != '-'
-            && board.at(outerTile).at(2) != ' ')) {
-        won = true;
-    }
-
-    //diaganol
-    if (board.at(outerTile).at(0) == board.at(outerTile).at(4)
-            && board.at(outerTile).at(0) == board.at(outerTile).at(8)
-            && (board.at(outerTile).at(0) != '-'
-            && board.at(outerTile).at(0) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(2) == board.at(outerTile).at(4)
-            && board.at(outerTile).at(2) == board.at(outerTile).at(6)
-            && (board.at(outerTile).at(2) != '-'
-            && board.at(outerTile).at(2) != ' ')) {
-        won = true;
-    }
-
-    if (won) {
-        if (piece == PIECE_X) {
-            board.at(outerTile) = CELL_X;
-        } else {
-            board.at(outerTile) = CELL_O;
-        }
-    }
-}
-
-//changes a piece of the board based on input
-void SuperTicTacToe::changeBoardPiece(int outerTile, int innerTile, Piece piece)
-{
-
-    //put players symbol in the give place
-    board.at(outerTile).at(innerTile) = piece;
-
-    //if the player won with that move, convert the cell tile
-    //into an X or an O
-    checkCellWon(outerTile, piece);
-
-    cellKnown = true;
-    m_cell = innerTile;
-
-    bool flag = false;
-
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        if (board.at(innerTile).at(i) == '-') {
-            flag = true;
-        }
-    }
-
-    if (!flag) {
-        cellKnown = false;
-    }
-}

@@ -4,12 +4,9 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include "GameState.h"
 using namespace std;
-const int BOARD_SIZE = 9;
 const int NUM_LAYERS = 3;
-const string CELL_X = "\\ / x / \\";
-const string CELL_O = " * * * * ";
-enum Piece {PIECE_X = 'X', PIECE_O = 'O'};
 
 //WEIGHTS
 const int SMALL_BOARD_WIN = 5;
@@ -38,17 +35,8 @@ class SuperTicTacToe
         //gets computer input
         void getCompInput();
 
-
-        //changes a piece of the board based on input
-        void changeBoardPiece(int outerTile, int innerTile, Piece piece);
-
-        void checkCellWon(int outerTile, Piece piece);
-        void checkGameOver();
     private:
-        vector<string> board; //the overall board, each inner board will be a string
-        bool cellKnown;
-        int m_cell;
-        bool gameWon;
+        GameState game;
 };
 
 #endif
