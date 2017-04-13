@@ -10,7 +10,6 @@ class MinimaxState
 public:
     virtual ~MinimaxState();
 
-    bool is_leaf() const;
     virtual int get_node_score() const = 0;
     virtual std::size_t get_child_count() const = 0;
 
