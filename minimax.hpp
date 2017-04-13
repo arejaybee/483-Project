@@ -18,7 +18,7 @@ public:
 };
 
 
-const MinimaxState &minimax_evaluate(const MinimaxState &head);
+const MinimaxState &minimax_evaluate(MinimaxState &head);
 
 
 #endif
