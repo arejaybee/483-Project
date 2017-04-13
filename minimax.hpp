@@ -14,8 +14,7 @@ public:
     virtual int get_node_score() const = 0;
     virtual std::size_t get_child_count() const = 0;
 
-    // will be freed upon destruction
-    virtual MinimaxState *get_child(std::size_t index) = 0;
+    virtual MinimaxState &get_child(std::size_t index) = 0;
 };
 
 
