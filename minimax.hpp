@@ -27,6 +27,7 @@ public:
 };
 
 
+// returns <index of optimal child, score>
 std::pair<std::size_t, int> minimax_evaluate(MinimaxState &head);
 
 
