@@ -126,7 +126,7 @@ void GameState::checkGameOver()
     //horizontal
     for(int i = 0; i < 3; i++)
     {
-        if (board.at(3*i) == board.at(3*i+1) && board.at(o) == board.at(3*i+2)
+        if (board.at(3*i) == board.at(3*i+1) && board.at(3*i) == board.at(3*i+2)
             && (board.at(3*i) == CELL_X || board.at(3*i) == CELL_O)) {
             won = true;
         }
