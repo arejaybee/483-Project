@@ -37,8 +37,8 @@ std::pair<std::size_t, int> minimax_evaluate(MinimaxState &head)
     
     if (head.get_player() == MinimaxState::PLAYER_MIN) { //if we are looking for the min
       if (candidate < result.second) { //see if the current node's number is less than the result. if so, replace
-	result.first = i;
-	result.second = candidate;
+        result.first = i;
+        result.second = candidate;
       }
     }
     else if (candidate > result.second) { //otherwise do the same for the max
