@@ -9,8 +9,7 @@ MinimaxState::~MinimaxState()
 }
 
 
-std::pair<std::size_t, int>
-minimax_evaluate(MinimaxState &head)
+std::pair<std::size_t, int> minimax_evaluate(MinimaxState &head)
 {
     // currently implements a very basic Minimax function (recursive; no pruning)
 
