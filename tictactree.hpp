@@ -25,8 +25,12 @@ public:
   
   // should return a child node given some index
   MinimaxState &get_child(std::size_t index);
+
 private:
   Player m_layer;
+  int m_score;
+  size_t m_numChildren;
+  MinimaxState[] m_children;
 };
 
 
