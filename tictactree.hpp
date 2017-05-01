@@ -8,7 +8,7 @@
 class TicTacTree : MinimaxState
 {
 public:
-    enum Player {PLAYER_MIN, PLAYER_MAX};
+  enum Player {PLAYER_MIN, PLAYER_MAX};
 
   TicTacTree(Player layer, string[] boardState);
   // deconstructor

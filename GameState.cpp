@@ -4,7 +4,8 @@ using namespace std;
 
 GameState::GameState() : board(BOARD_SIZE)
 {
-    for (int i = 0; i < BOARD_SIZE; i++) {
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
         board.at(i) = "---------";
     }
 }
@@ -13,11 +14,14 @@ void GameState::printBoard()
 {
     cout << " _____________________________\n\n";
 
-    for (int i = 0; i < BOARD_SIZE; i += 3) {
-        for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < BOARD_SIZE; i += 3)
+    {
+        for (int j = 0; j < 3; j++)
+        {
             cout << " || ";
 
-            for (int k = 0; k < 3; k++) {
+            for (int k = 0; k < 3; k++)
+            {
                 cout << board.at(k + i).at(0 + (j * 3)) << " " <<
                         board.at(k + i).at(1 + (j * 3)) << " " <<
                         board.at(k + i).at(2 + (j * 3)) << " ";
@@ -54,7 +58,8 @@ void GameState::changeBoardPiece(Move move, Piece piece)
 
     bool flag = false;
 
-    for (int i = 0; i < BOARD_SIZE; i++) {
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
         if (board.at(move.square).at(i) == '-') {
             flag = true;
         }
@@ -70,38 +75,38 @@ void GameState::checkCellWon(int outerTile, Piece piece)
     bool won = false;
     //horizontal
     for(int i = 0; i < 3; i++)
-      {
-	if (board.at(outerTile).at(3*i) == board.at(outerTile).at(3*i+1)
+    {
+        if (board.at(outerTile).at(3*i) == board.at(outerTile).at(3*i+1)
             && board.at(outerTile).at(3*i) == board.at(outerTile).at(3*i+2)
             && (board.at(outerTile).at(3*i) != '-'
-		&& board.at(outerTile).at(3*i) != ' ')) {
-	  won = true;
-	}
-      }
+            && board.at(outerTile).at(3*i) != ' ')) {
+            won = true;
+        }
+    }
 
     //vertical
     for(int i = 0; i < 3; i++)
-      {
-	if (board.at(outerTile).at(i) == board.at(outerTile).at(i+3)
+    {
+        if (board.at(outerTile).at(i) == board.at(outerTile).at(i+3)
             && board.at(outerTile).at(i) == board.at(outerTile).at(i+6)
             && (board.at(outerTile).at(i) != '-'
-		&& board.at(outerTile).at(i) != ' ')) {
-	  won = true;
-	}
-      }
+            && board.at(outerTile).at(i) != ' ')) {
+            won = true;
+        }
+    }
 
     //diaganol
     if (board.at(outerTile).at(0) == board.at(outerTile).at(4)
-            && board.at(outerTile).at(0) == board.at(outerTile).at(8)
-            && (board.at(outerTile).at(0) != '-'
-            && board.at(outerTile).at(0) != ' ')) {
+        && board.at(outerTile).at(0) == board.at(outerTile).at(8)
+        && (board.at(outerTile).at(0) != '-'
+        && board.at(outerTile).at(0) != ' ')) {
         won = true;
     }
 
     if (board.at(outerTile).at(2) == board.at(outerTile).at(4)
-            && board.at(outerTile).at(2) == board.at(outerTile).at(6)
-            && (board.at(outerTile).at(2) != '-'
-            && board.at(outerTile).at(2) != ' ')) {
+        && board.at(outerTile).at(2) == board.at(outerTile).at(6)
+        && (board.at(outerTile).at(2) != '-'
+        && board.at(outerTile).at(2) != ' ')) {
         won = true;
     }
 
@@ -120,30 +125,30 @@ void GameState::checkGameOver()
 
     //horizontal
     for(int i = 0; i < 3; i++)
-      {
-	if (board.at(3*i) == board.at(3*i+1) && board.at(o) == board.at(3*i+2)
+    {
+        if (board.at(3*i) == board.at(3*i+1) && board.at(o) == board.at(3*i+2)
             && (board.at(3*i) == CELL_X || board.at(3*i) == CELL_O)) {
-	  won = true;
-	}
-      }
+            won = true;
+        }
+    }
 
     //vertical
     for(int i = 0; i < 3; i++)
-      {
-	if (board.at(i) == board.at(i+3) && board.at(i) == board.at(i+6)
+    {
+        if (board.at(i) == board.at(i+3) && board.at(i) == board.at(i+6)
             && (board.at(i) == CELL_X || board.at(i) == CELL_O)) {
-	  won = true;
-	}
-      }
+            won = true;
+        }
+    }
 
     //diagnol
     if (board.at(0) == board.at(4) && board.at(0) == board.at(8)
-            && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
+        && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
         won = true;
     }
 
     if (board.at(2) == board.at(4) && board.at(2) == board.at(7)
-            && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
+        && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
         won = true;
     }
 
