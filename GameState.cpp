@@ -69,49 +69,26 @@ void GameState::checkCellWon(int outerTile, Piece piece)
 {
     bool won = false;
     //horizontal
-
-    if (board.at(outerTile).at(0) == board.at(outerTile).at(1)
-            && board.at(outerTile).at(0) == board.at(outerTile).at(2)
-            && (board.at(outerTile).at(0) != '-'
-            && board.at(outerTile).at(0) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(3) == board.at(outerTile).at(4)
-            && board.at(outerTile).at(3) == board.at(outerTile).at(5)
-            && (board.at(outerTile).at(3) != '-'
-            && board.at(outerTile).at(3) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(6) == board.at(outerTile).at(7)
-            && board.at(outerTile).at(6) == board.at(outerTile).at(8)
-            && board.at(outerTile).at(6) != '-'
-            && board.at(outerTile).at(6) != ' ') {
-        won = true;
-    }
+    for(int i = 0; i < 3; i++)
+      {
+	if (board.at(outerTile).at(3*i) == board.at(outerTile).at(3*i+1)
+            && board.at(outerTile).at(3*i) == board.at(outerTile).at(3*i+2)
+            && (board.at(outerTile).at(3*i) != '-'
+		&& board.at(outerTile).at(3*i) != ' ')) {
+	  won = true;
+	}
+      }
 
     //vertical
-    if (board.at(outerTile).at(0) == board.at(outerTile).at(3)
-            && board.at(outerTile).at(0) == board.at(outerTile).at(6)
-            && (board.at(outerTile).at(0) != '-'
-            && board.at(outerTile).at(0) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(1) == board.at(outerTile).at(4)
-            && board.at(outerTile).at(1) == board.at(outerTile).at(7)
-            && (board.at(outerTile).at(1) != '-'
-            && board.at(outerTile).at(1) != ' ')) {
-        won = true;
-    }
-
-    if (board.at(outerTile).at(2) == board.at(outerTile).at(5)
-            && board.at(outerTile).at(2) == board.at(outerTile).at(8)
-            && (board.at(outerTile).at(2) != '-'
-            && board.at(outerTile).at(2) != ' ')) {
-        won = true;
-    }
+    for(int i = 0; i < 3; i++)
+      {
+	if (board.at(outerTile).at(i) == board.at(outerTile).at(i+3)
+            && board.at(outerTile).at(i) == board.at(outerTile).at(i+6)
+            && (board.at(outerTile).at(i) != '-'
+		&& board.at(outerTile).at(i) != ' ')) {
+	  won = true;
+	}
+      }
 
     //diaganol
     if (board.at(outerTile).at(0) == board.at(outerTile).at(4)
@@ -142,36 +119,22 @@ void GameState::checkGameOver()
     bool won = false;
 
     //horizontal
-    if (board.at(0) == board.at(1) && board.at(0) == board.at(2)
-            && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
-        won = true;
-    }
-
-    if (board.at(3) == board.at(4) && board.at(3) == board.at(5)
-            && (board.at(3) == CELL_X || board.at(3) == CELL_O)) {
-        won = true;
-    }
-
-    if (board.at(6) == board.at(7) && board.at(6) == board.at(8)
-            && (board.at(6) == CELL_X || board.at(6) == CELL_O)) {
-        won = true;
-    }
+    for(int i = 0; i < 3; i++)
+      {
+	if (board.at(3*i) == board.at(3*i+1) && board.at(o) == board.at(3*i+2)
+            && (board.at(3*i) == CELL_X || board.at(3*i) == CELL_O)) {
+	  won = true;
+	}
+      }
 
     //vertical
-    if (board.at(0) == board.at(3) && board.at(0) == board.at(6)
-            && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
-        won = true;
-    }
-
-    if (board.at(1) == board.at(4) && board.at(1) == board.at(7)
-            && (board.at(1) == CELL_X || board.at(1) == CELL_O)) {
-        won = true;
-    }
-
-    if (board.at(2) == board.at(5) && board.at(2) == board.at(8)
-            && (board.at(2) == CELL_X || board.at(2) == CELL_O)) {
-        won = true;
-    }
+    for(int i = 0; i < 3; i++)
+      {
+	if (board.at(i) == board.at(i+3) && board.at(i) == board.at(i+6)
+            && (board.at(i) == CELL_X || board.at(i) == CELL_O)) {
+	  won = true;
+	}
+      }
 
     //diagnol
     if (board.at(0) == board.at(4) && board.at(0) == board.at(8)
