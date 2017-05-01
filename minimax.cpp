@@ -26,7 +26,7 @@ std::pair<std::size_t, int> minimax_evaluate(MinimaxState &head)
 		if (child.get_child_count() == 0) { //if there are no children, calculate the score
 	  	candidate = child.get_node_score();
 		}
-		else { //otherwize recurse down(im not sure what second is?)
+		else { //otherwize recurse down
 			candidate = minimax_evaluate(child).second;
 		}
 		if (i == 0) { //if the first iteration of loop, assume it is the result
