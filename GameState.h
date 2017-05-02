@@ -6,6 +6,15 @@
 #include <vector>
 using namespace std;
 
+//WEIGHTS
+const int SMALL_BOARD_WIN = 5;
+const int MIDDLE_BOARD_WIN = 10;
+const int CORNER_BOARD_WIN = 3;
+const int CENTER_SQUARE_IN_SMALL_BOARD = 3;
+const int SQUARE_IN_CENTER_BOARD = 3;
+const int TWO_PARTS_OF_A_WIN = 4;
+const int TWO_PARTS_OF_A_BOARD = 2;
+
 const int BOARD_SIZE = 9;
 const int X = 1;
 const int O = -1;
