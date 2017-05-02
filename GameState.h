@@ -7,13 +7,13 @@
 using namespace std;
 
 //WEIGHTS
-const int SMALL_BOARD_WIN = 5;
-const int MIDDLE_BOARD_WIN = 10;
-const int CORNER_BOARD_WIN = 3;
-const int CENTER_SQUARE_IN_SMALL_BOARD = 3;
-const int SQUARE_IN_CENTER_BOARD = 3;
-const int TWO_PARTS_OF_A_WIN = 4;
-const int TWO_PARTS_OF_A_BOARD = 2;
+const int SMALL_BOARD_WIN = 5;              //In score evaluation
+const int MIDDLE_BOARD_WIN = 10;            //In score evaluation
+const int CORNER_BOARD_WIN = 3;             //In score evaluation
+const int CENTER_SQUARE_IN_SMALL_BOARD = 3; //In score evaluation
+const int SQUARE_IN_CENTER_BOARD = 3;       //TODO: this isn't included in score evaluation
+const int TWO_PARTS_OF_A_WIN = 4;           //In score evaluation
+const int TWO_PARTS_OF_A_BOARD = 2;         //In score evaluation
 
 const int BOARD_SIZE = 9;
 const int X = 1;
@@ -23,7 +23,9 @@ const string CELL_O = " * * * * ";
 
 enum Piece {
     PIECE_X = 'X',
-    PIECE_O = 'O'
+    PIECE_O = 'O',
+    PIECE_UNTAKEN = '-',
+    PIECE_EMPTY = ' '
 };
 
 struct Move {
