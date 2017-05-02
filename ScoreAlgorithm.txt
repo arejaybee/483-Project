@@ -1,0 +1,7 @@
+//Precondition: This node exists and has a GameState member variable. Only terminal nodes should call this
+//Postcondition: This node will have a score 
+//Description: Evaluates the score of a terminal node
+evaluateScore()
+{
+	gameState.getScore();
+}

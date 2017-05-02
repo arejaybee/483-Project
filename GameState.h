@@ -45,9 +45,8 @@ class GameState
   //gets a vetor with all valid children of the current board
   vector<GameState> getPotentialChildren();
   
-  //updates the board state using the input move
-  int makeMove(Move m);
-  
+  int evaluateScore();
+
   //changes a piece of the board based on input
   void changeBoardPiece(Move move, Piece piece);
   
@@ -55,10 +54,12 @@ class GameState
   
   void checkGameOver();
   
+  
   bool gameOver;
   
   bool cellKnown;
   int m_cell;
+
  private:
   vector<string> board; //the overall board, each inner board will be a string
   Move lastMove;
