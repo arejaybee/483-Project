@@ -113,6 +113,13 @@ int GameState::evaluateScore()
     }
   }
 
+  //gain SQUARE_IN_CENTER_BOARD points for every square you own in the center board
+  for (int i = 0; i < BOARD_SIZE; i++) {
+    if (board[4][i] == PIECE_O) {
+      score += SQUARE_IN_CENTER_BOARD;
+    }
+  }
+
   //winning the center board is an additional MIDDLE_BOARD_WIN points
   if(board[4] == CELL_O) {
     score += MIDDLE_BOARD_WIN;
