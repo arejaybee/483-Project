@@ -90,7 +90,7 @@ void SuperTicTacToe::getCompInput()
     Move m;
     m.board = -1; //cell
     m.square = -1; //space
-    
+    cout<<"We totally know the cell! "<<game.cellKnown<<endl; 
     while (!inputIsValid) {
         if (game.cellKnown) {
             m.board = game.m_cell;
@@ -103,7 +103,8 @@ void SuperTicTacToe::getCompInput()
                     inputIsValid = true;
                     m.board = game.m_cell;
                     m.square = i;
-                }
+		    i = BOARD_SIZE;
+		}
             }
         }
         else {
@@ -111,19 +112,19 @@ void SuperTicTacToe::getCompInput()
                 for (int j = 0; j < BOARD_SIZE; j++) {
                     m.board = i;
                     m.square = j;
-		    cout<<game.charAt(m)<<endl;
+		    cout<<"I could go to "<<m.board<<" , "<<m.square<<" : "; 
                     if (game.charAt(m) == '-') {
                         inputIsValid = true;
                         m.board = i;
                         m.square = j;
-                    }
+			i = BOARD_SIZE;
+			j = BOARD_SIZE;
+		    }
+		    cout<<inputIsValid<<endl;
                 }
             }
         }
     }
-    cout<<inputIsValid<<endl;
-    cout<<"I am a stupid computer, so I will go to: "<<m.board<<" "<<m.square<<endl;
-    cout<<"The char is a: "<<game.charAt(m)<<endl;
     game.changeBoardPiece(m, PIECE_O);
 }
 
