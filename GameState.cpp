@@ -2,7 +2,7 @@
 
 using namespace std;
 
-GameState::GameState() : board(BOARD_SIZE)
+GameState::GameState() : gameOver(false) , cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {

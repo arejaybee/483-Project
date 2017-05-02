@@ -2,9 +2,9 @@
 using namespace std;
 
 //Constructor
-SuperTicTacToe::SuperTicTacToe()
+SuperTicTacToe::SuperTicTacToe() : game(* (new GameState()))
 {
-    game = *(new GameState());
+  //game = *(new GameState());
 }
 
 //plays the game
@@ -90,7 +90,7 @@ void SuperTicTacToe::getCompInput()
     Move m;
     m.board = -1; //cell
     m.square = -1; //space
-
+    
     while (!inputIsValid) {
         if (game.cellKnown) {
             m.board = game.m_cell;
@@ -111,6 +111,7 @@ void SuperTicTacToe::getCompInput()
                 for (int j = 0; j < BOARD_SIZE; j++) {
                     m.board = i;
                     m.square = j;
+		    cout<<game.charAt(m)<<endl;
                     if (game.charAt(m) == '-') {
                         inputIsValid = true;
                         m.board = i;
@@ -120,7 +121,9 @@ void SuperTicTacToe::getCompInput()
             }
         }
     }
-
+    cout<<inputIsValid<<endl;
+    cout<<"I am a stupid computer, so I will go to: "<<m.board<<" "<<m.square<<endl;
+    cout<<"The char is a: "<<game.charAt(m)<<endl;
     game.changeBoardPiece(m, PIECE_O);
 }
 
