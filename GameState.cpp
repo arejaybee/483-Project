@@ -43,14 +43,103 @@ int GameState::evaluateScore()
 {
   int score = 0;
   
-  //for winning any board, you get 5 points
   for(int i = 0; i < BOARD_SIZE; i++)
     {
+      //for winning any board, you get 5 points
       if(board[i] == CELL_O)
 	{
 	  score += SMALL_BOARD_WIN;
 	}
+
+      //if 2/3 squares are O, you get 4 points for getting close to winning
+      if(board[i][0] == 'O')
+	{
+	  for(int j = 1; j < 9; j++)
+	    {
+	      if(board[i][j] == 'O' && j != 5 && j!= 7)
+		{
+		  score+=4;
+		}
+	    }
+	}
+
+      if(board[i][1] == 'O')
+	{
+	  for(int j = 2; j < 9; j++)
+	    {
+	      if(board[i][j] == 'O' && j != 3 && j!= 5 && j!=6 && j!=8)
+		{
+		  score+=4;
+		}
+	    }
+	}
+
+      if(board[i][2] == 'O')
+	{
+	  for(int j = 3; j < 9; j++)
+	    {
+	      if(board[i][j] == 'O' && j!= 7)
+		{
+		  score+=4;
+		}
+	    }
+	}
+      if(board[i][3] == 'O')
+	{
+	  for(int j = 4; j < 9; j++)
+	    {
+	      if(board[i][j] == 'O' && j!= 7 && j!=8)
+		{
+		  score+=4;
+		}
+	    }
+	}
+      if(board[i][4] == 'O')
+	{
+	  for(int j = 5; j < 9; j++)
+	    {
+	      if(board[i][j] == 'O')
+		{
+		  score+=4;
+		}
+	    }
+	}
+      if(board[i][5] == 'O')
+	{
+	  for(int j = 6; j < 9; j++)
+	    {
+	      if(board[i][j] == 'O' && j!= 7)
+		{
+		  score+=4;
+		}
+	    }
+	}
+      if(board[i][6] == 'O')
+	{
+	  for(int j = 7; j < 9; j++)
+	    {
+	      if(board[i][j] == 'O')
+		{
+		  score+=4;
+		}
+	    }
+	}
+      if(board[i][7] == 'O')
+	{
+	  for(int j = 8; j < 9; j++)
+	    {
+	      if(board[i][j] == 'O')
+		{
+		  score+=4;
+		}
+	    }
+	}
       
+      //if the center is an O you get an additional 3 points
+      if(board[i][4] == 'O')
+	{
+	  score += SQUARE_IN_CENTER_BOARD;
+	}
     }
   //winning the center board is an additional 10 points
   if(board[4] == CELL_O)
@@ -63,14 +152,6 @@ int GameState::evaluateScore()
       score += CORNER_BOARD_WIN;
     }
 
-  //having the cetner square in any board is worth 3 points
-  for(int i = 0; i < BOARD_SIZE; i++)
-    {
-      if(board[i][4] == 'O')
-	{
-	  score += SQUARE_IN_CENTER_BOARD;
-	}
-    }
   //if you have 2/3 parts needed to win, thats 4 points
   
   if(board[0] == CELL_O)
@@ -156,93 +237,6 @@ int GameState::evaluateScore()
 	}
     }
   
-  //if you have 2/3 parts of a win on a board, that is 4 points
-  for(int i = 0; i < BOARD_SIZE; i++)
-    {
-      if(board[i][0] == 'O')
-	{
-	  for(int j = 1; j < 9; j++)
-	    {
-	      if(board[i][j] == 'O' && j != 5 && j!= 7)
-		{
-		  score+=4;
-		}
-	    }
-	}
-
-      if(board[i][1] == 'O')
-	{
-	  for(int j = 2; j < 9; j++)
-	    {
-	      if(board[i][j] == 'O' && j != 3 && j!= 5 && j!=6 && j!=8)
-		{
-		  score+=4;
-		}
-	    }
-	}
-
-      if(board[i][2] == 'O')
-	{
-	  for(int j = 3; j < 9; j++)
-	    {
-	      if(board[i][j] == 'O' && j!= 7)
-		{
-		  score+=4;
-		}
-	    }
-	}
-      if(board[i][3] == 'O')
-	{
-	  for(int j = 4; j < 9; j++)
-	    {
-	      if(board[i][j] == 'O' && j!= 7 && j!=8)
-		{
-		  score+=4;
-		}
-	    }
-	}
-      if(board[i][4] == 'O')
-	{
-	  for(int j = 5; j < 9; j++)
-	    {
-	      if(board[i][j] == 'O')
-		{
-		  score+=4;
-		}
-	    }
-	}
-      if(board[i][5] == 'O')
-	{
-	  for(int j = 6; j < 9; j++)
-	    {
-	      if(board[i][j] == 'O' && j!= 7)
-		{
-		  score+=4;
-		}
-	    }
-	}
-      if(board[i][6] == 'O')
-	{
-	  for(int j = 7; j < 9; j++)
-	    {
-	      if(board[i][j] == 'O')
-		{
-		  score+=4;
-		}
-	    }
-	}
-      if(board[i][7] == 'O')
-	{
-	  for(int j = 8; j < 9; j++)
-	    {
-	      if(board[i][j] == 'O')
-		{
-		  score+=4;
-		}
-	    }
-	}
-
-    }
   return score;
 }
 
