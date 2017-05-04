@@ -11,16 +11,20 @@ static int
 minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
         int beta)
 {
+  //if we hit the bottom of the tree, evaluate the score
     if (depth == 0)
         return node.evaluateScore();
-
+    //get the children from this state
     const std::vector<GameState> children = node.getPotentialChildren();
 
+    //if there are no children, this is a terminal node
     if (children.empty())
         return node.evaluateScore();
 
+    //whos turn is it?
     const Piece turn = node.getTurn();
 
+    //if it is the player's turn, minimize
     if (turn == PIECE_X) {
         int v = std::numeric_limits<int>::min();
 
@@ -34,7 +38,9 @@ minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
         }
 
         return v;
-    } else {
+    }
+    //it is the AI's turn, maximize
+    else {
         int v = std::numeric_limits<int>::min();
 
         for (std::vector<GameState>::const_iterator it = children.begin();
@@ -57,7 +63,9 @@ minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
 Move
 minimax(const GameState &node, std::size_t max_depth)
 {
+  //whos turn is it?
     const Piece turn = node.getTurn();
+    //get the children
     const std::vector<GameState> children = node.getPotentialChildren();
     std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::min());
 
