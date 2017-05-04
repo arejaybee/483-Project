@@ -38,14 +38,20 @@ class GameState
  public:
   //Constructor
   GameState();
+
+  GameState(GameState *g);
   
   //prints out the board to terminal
   void printBoard();
   
   char charAt(Move m);
+
+  vector<Move> getPotentialMoves();
   
   //gets a vetor with all valid children of the current board
   vector<GameState> getPotentialChildren();
+
+  Piece getTurn();
   
   int evaluateScore();
 
@@ -56,15 +62,13 @@ class GameState
   
   void checkGameOver();
   
-  
   bool gameOver;
-  
   bool cellKnown;
   int m_cell;
-
- private:
   vector<string> board; //the overall board, each inner board will be a string
   Move lastMove;
+
+ private:
 };
 
 #endif

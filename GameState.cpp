@@ -10,6 +10,15 @@ GameState::GameState() : gameOver(false) , cellKnown(false) , m_cell(-1) , board
     }
 }
 
+GameState::GameState(GameState *g)
+{
+  gameOver = g->gameOver;
+  cellKnown = g->cellKnown;
+  m_cell = g->m_cell;
+  board = g->board;
+  lastMove = g->lastMove;
+}
+
 void GameState::printBoard()
 {
     cout << " _____________________________\n\n";
@@ -37,6 +46,69 @@ void GameState::printBoard()
     }
 
     cout << endl << endl;
+}
+
+char GameState::charAt(Move m)
+{
+    return board.at(m.board).at(m.square);
+}
+
+vector<Move> GameState::getPotentialMoves()
+{
+  vector<Move> potentialMoves;
+  Move tempMove;
+
+  if (cellKnown) {
+    tempMove.board = lastMove.square;
+    for (int i = 0; i < BOARD_SIZE; i++) {
+      if (board[lastMove.square][i] == PIECE_UNTAKEN) {
+        tempMove.square = i;
+        potentialMoves.push_back(tempMove);
+      }
+    }
+  }
+  else {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+      for (int j = 0; j < BOARD_SIZE; j++) {
+        if (board[i][j] == PIECE_UNTAKEN) {
+          tempMove.board = i;
+          tempMove.square = j;
+          potentialMoves.push_back(tempMove);
+        }
+      }
+    }
+  }
+
+  return potentialMoves;
+}
+
+vector<GameState> GameState::getPotentialChildren()
+{
+  vector<GameState> children;
+
+  vector<Move> possibleMoves = getPotentialMoves();
+  int numPossibleMoves = possibleMoves.size();
+
+  for (int i = 0; i < numPossibleMoves; i++) {
+    cout << possibleMoves[i].board << ", " << possibleMoves[i].square << endl;
+    GameState tempGameState = GameState(*this);
+    tempGameState.changeBoardPiece(possibleMoves[i], getTurn());
+    children.push_back(tempGameState);
+  }
+
+  return children;
+}
+
+Piece GameState::getTurn() {
+  if (board[lastMove.board][lastMove.square] == PIECE_X) {
+    return PIECE_O;
+  }
+  else if (board[lastMove.board][lastMove.square] == PIECE_O) {
+    return PIECE_X;
+  }
+  else {
+    return PIECE_EMPTY;
+  }
 }
 
 int GameState::evaluateScore()
@@ -191,10 +263,6 @@ int GameState::evaluateScore()
   return score;
 }
 
-char GameState::charAt(Move m) {
-    return board.at(m.board).at(m.square);
-}
-
 //changes a piece of the board based on input
 void GameState::changeBoardPiece(Move move, Piece piece)
 {
@@ -220,6 +288,8 @@ void GameState::changeBoardPiece(Move move, Piece piece)
     if (!flag) {
         cellKnown = false;
     }
+
+    lastMove = move;
 }
 
 void GameState::checkCellWon(int outerTile, Piece piece)

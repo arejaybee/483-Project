@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 #include "GameState.h"
 using namespace std;
 const int NUM_LAYERS = 3;

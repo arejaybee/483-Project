@@ -86,6 +86,7 @@ void SuperTicTacToe::getPlayerInput()
 //gets computer input
 void SuperTicTacToe::getCompInput()
 {
+    /*
     bool inputIsValid = false;
     Move m;
     m.board = -1; //cell
@@ -125,6 +126,11 @@ void SuperTicTacToe::getCompInput()
         }
     }
     game.changeBoardPiece(m, PIECE_O);
+    */
+    vector<Move> g = game.getPotentialMoves();
+    int size = g.size();
+    int selection = rand() % size;
+    game.changeBoardPiece(g[selection], PIECE_O);
 }
 
 
