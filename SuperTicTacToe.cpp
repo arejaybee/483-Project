@@ -133,10 +133,12 @@ void SuperTicTacToe::getCompInput()
     }
     game.changeBoardPiece(m, PIECE_O);
     */
-    vector<Move> g = game.getPotentialMoves();
+  /*    vector<Move> g = game.getPotentialMoves();
     int size = g.size();
     int selection = rand() % size;
-    game.changeBoardPiece(g[selection], PIECE_O);
+    game.changeBoardPiece(g[selection], PIECE_O);*/
+  const Move myMove = minimax(game, 4);
+  game.changeBoardPiece(myMove,PIECE_O);
 }
 
 
