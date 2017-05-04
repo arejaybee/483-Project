@@ -99,7 +99,8 @@ vector<GameState> GameState::getPotentialChildren()
   return children;
 }
 
-Piece GameState::getTurn() {
+Piece GameState::getTurn()
+{
   if (board[lastMove.board][lastMove.square] == PIECE_X) {
     return PIECE_O;
   }
