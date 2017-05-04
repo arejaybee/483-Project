@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//generic constructor
 GameState::GameState() : gameOver(false) , cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
 {
     for (int i = 0; i < BOARD_SIZE; i++)
@@ -10,6 +11,7 @@ GameState::GameState() : gameOver(false) , cellKnown(false) , m_cell(-1) , board
     }
 }
 
+//copy constructor
 GameState::GameState(GameState *g) : gameOver(false) , cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
 {
   gameOver = g->gameOver;
@@ -22,30 +24,32 @@ GameState::GameState(GameState *g) : gameOver(false) , cellKnown(false) , m_cell
 //This is witchcraft
 void GameState::printBoard() const
 {
+  //top of board
     cout << " _____________________________\n\n";
 
     for (int i = 0; i < BOARD_SIZE; i += 3)
     {
-        for (int j = 0; j < 3; j++)
+      //three square rows per board row 
+      for (int j = 0; j < 3; j++)
         {
-            cout << " || ";
-
-            for (int k = 0; k < 3; k++)
+	  cout << " || ";
+	  //print a square row of values
+	  for (int k = 0; k < 3; k++)
             {
-                cout << board.at(k + i).at(0 + (j * 3)) << " " <<
-                        board.at(k + i).at(1 + (j * 3)) << " " <<
-                        board.at(k + i).at(2 + (j * 3)) << " ";
-                cout << "|| ";
+	      cout << board.at(k + i).at(0 + (j * 3)) << " " <<
+		board.at(k + i).at(1 + (j * 3)) << " " <<
+		board.at(k + i).at(2 + (j * 3)) << " ";
+	      cout << "|| ";
             }
-
-            cout << endl;
+	  
+	  cout << endl;
         }
-
-        if (i % 3 == 0) {
-            cout << " _____________________________\n\n";
-        }
+      //bottom of each row
+      if (i % 3 == 0) {
+	cout << " _____________________________\n\n";
+      }
     }
-
+    
     cout << endl << endl;
 }
 
@@ -62,7 +66,9 @@ vector<Move> GameState::getPotentialMoves() const
   vector<Move> potentialMoves;
   Move tempMove;
 
+  //if the computer has an assigned board
   if (cellKnown) {
+    //look for hiphens in that board, and return those
     tempMove.board = lastMove.square;
     for (int i = 0; i < BOARD_SIZE; i++) {
       if (board[lastMove.square][i] == PIECE_UNTAKEN) {
@@ -71,6 +77,7 @@ vector<Move> GameState::getPotentialMoves() const
       }
     }
   }
+  //otherwise look for hiphens anywhere
   else {
     for (int i = 0; i < BOARD_SIZE; i++) {
       for (int j = 0; j < BOARD_SIZE; j++) {
@@ -86,13 +93,16 @@ vector<Move> GameState::getPotentialMoves() const
   return potentialMoves;
 }
 
+//return all possible gamestates to come from this one
 vector<GameState> GameState::getPotentialChildren() const
 {
   vector<GameState> children;
 
+  //find out where the player could move to
   vector<Move> possibleMoves = getPotentialMoves();
   int numPossibleMoves = possibleMoves.size();
-
+  
+  //for each move, generate a gamestate where that move was taken
   for (int i = 0; i < numPossibleMoves; i++) {
     cout << possibleMoves[i].board << ", " << possibleMoves[i].square << endl;
     GameState tempGameState = GameState(*this);
@@ -103,6 +113,7 @@ vector<GameState> GameState::getPotentialChildren() const
   return children;
 }
 
+//lets you know who's turn it is
 Piece GameState::getTurn() const
 {
   if (board[lastMove.board][lastMove.square] == PIECE_X) {
@@ -111,11 +122,13 @@ Piece GameState::getTurn() const
   else if (board[lastMove.board][lastMove.square] == PIECE_O) {
     return PIECE_X;
   }
+  //for debugging, this should never happpen
   else {
     return PIECE_EMPTY;
   }
 }
 
+//determine the score of this boardstate (for computer's min/max tree)
 int GameState::evaluateScore() const
 {
   int score = 0;
