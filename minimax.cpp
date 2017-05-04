@@ -26,12 +26,12 @@ minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
 
     //if it is the player's turn, minimize
     if (turn == PIECE_X) {
-        int v = std::numeric_limits<int>::min();
+        int v = std::numeric_limits<int>::max();
 
         for (std::vector<GameState>::const_iterator it = children.begin();
                 it != children.end(); ++it) {
-            v = std::max(v, minimax_evaluate(*it, depth - 1, alpha, beta));
-            alpha = std::max(alpha, v);
+            v = std::min(v, minimax_evaluate(*it, depth - 1, alpha, beta));
+            alpha = std::min(alpha, v);
 
             if (beta <= alpha)
                 break;
@@ -41,12 +41,12 @@ minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
     }
     //it is the AI's turn, maximize
     else {
-        int v = std::numeric_limits<int>::min();
+        int v = std::numeric_limits<int>::max();
 
         for (std::vector<GameState>::const_iterator it = children.begin();
                 it != children.end(); ++it) {
             v = std::min(v, minimax_evaluate(*it, depth - 1, alpha, beta));
-            beta = std::min(beta, v);
+            beta = std::max(beta, v);
 
             if (beta <= alpha)
                 break;
@@ -67,19 +67,19 @@ minimax(const GameState &node, std::size_t max_depth)
     const Piece turn = node.getTurn();
     //get the children
     const std::vector<GameState> children = node.getPotentialChildren();
-    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::min());
+    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::max());
 
     if (turn == PIECE_O)
-        candidate.second = std::numeric_limits<int>::max();
+        candidate.second = std::numeric_limits<int>::min();
 
     for (std::vector<GameState>::const_iterator it = children.begin();
             it != children.end(); ++it) {
         const int v = minimax_evaluate(*it, max_depth - 1,
                 std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
 
-        if (turn == PIECE_X && v > candidate.second)
+        if (turn == PIECE_X && v < candidate.second)
             candidate = std::make_pair(it->lastMove, v);
-        else if (turn == PIECE_O && v < candidate.second)
+        else if (turn == PIECE_O && v > candidate.second)
             candidate = std::make_pair(it->lastMove, v);
     }
 
