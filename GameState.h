@@ -38,22 +38,21 @@ class GameState
  public:
   //Constructor
   GameState();
-
   GameState(GameState *g);
-  
-  //prints out the board to terminal
-  void printBoard();
-  
-  char charAt(Move m);
 
-  vector<Move> getPotentialMoves();
+  //prints out the board to terminal
+  void printBoard() const;
+  
+  char charAt(Move m) const;
+
+  vector<Move> getPotentialMoves() const;
   
   //gets a vetor with all valid children of the current board
-  vector<GameState> getPotentialChildren();
+  vector<GameState> getPotentialChildren() const;
 
-  Piece getTurn();
+  Piece getTurn() const;
   
-  int evaluateScore();
+  int evaluateScore() const;
 
   //changes a piece of the board based on input
   void changeBoardPiece(Move move, Piece piece);

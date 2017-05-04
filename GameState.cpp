@@ -20,7 +20,7 @@ GameState::GameState(GameState *g) : gameOver(false) , cellKnown(false) , m_cell
 }
 
 //This is witchcraft
-void GameState::printBoard()
+void GameState::printBoard() const
 {
     cout << " _____________________________\n\n";
 
@@ -49,14 +49,15 @@ void GameState::printBoard()
     cout << endl << endl;
 }
 
+
 //just see if there is a char at the move option provided
-char GameState::charAt(Move m)
+char GameState::charAt(Move m) const
 {
     return board.at(m.board).at(m.square);
 }
 
 //a vector of places a player CAN move to
-vector<Move> GameState::getPotentialMoves()
+vector<Move> GameState::getPotentialMoves() const
 {
   vector<Move> potentialMoves;
   Move tempMove;
@@ -85,7 +86,7 @@ vector<Move> GameState::getPotentialMoves()
   return potentialMoves;
 }
 
-vector<GameState> GameState::getPotentialChildren()
+vector<GameState> GameState::getPotentialChildren() const
 {
   vector<GameState> children;
 
@@ -102,7 +103,8 @@ vector<GameState> GameState::getPotentialChildren()
   return children;
 }
 
-Piece GameState::getTurn() {
+Piece GameState::getTurn() const
+{
   if (board[lastMove.board][lastMove.square] == PIECE_X) {
     return PIECE_O;
   }
@@ -114,7 +116,7 @@ Piece GameState::getTurn() {
   }
 }
 
-int GameState::evaluateScore()
+int GameState::evaluateScore() const
 {
   int score = 0;
   
