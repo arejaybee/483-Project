@@ -58,12 +58,12 @@ minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
 }
 
 
-std::size_t
+Move
 minimax(const GameState &node, std::size_t max_depth)
 {
     const Piece turn = node.getTurn();
     const std::vector<Move> moves = node.getPotentialMoves();
-    std::pair<std::size_t, int> candidate(0, std::numeric_limits<int>::min());
+    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::min());
 
     if (turn == PIECE_O)
 	candidate.second = std::numeric_limits<int>::max();
@@ -76,9 +76,9 @@ minimax(const GameState &node, std::size_t max_depth)
 				       std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
 
 	if (turn == PIECE_X && v > candidate.second)
-	    candidate = std::make_pair(std::distance(moves.begin(), it), v);
+	    candidate = std::make_pair(*it, v);
 	else if (turn == PIECE_O && v < candidate.second)
-	    candidate = std::make_pair(std::distance(moves.begin(), it), v);
+	    candidate = std::make_pair(*it, v);
     }
 
     return candidate.first;
