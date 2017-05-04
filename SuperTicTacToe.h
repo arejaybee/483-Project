@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdlib>
 #include "GameState.h"
+#include "minimax.hpp"
 using namespace std;
 const int NUM_LAYERS = 3;
 
