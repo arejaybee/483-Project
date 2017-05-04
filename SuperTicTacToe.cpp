@@ -16,7 +16,8 @@ void SuperTicTacToe::play()
     //keep playing until the game is over
     while (!game.gameOver) {
         //player goes first
-        getPlayerInput();
+        //getPlayerInput(PIECE_X);
+        getInput(PIECE_X, RANDOM);
         printBoard();
         game.checkGameOver();
 
@@ -26,7 +27,8 @@ void SuperTicTacToe::play()
         }
         //let the computer go
         else {
-            getCompInput();
+            //getCompInput(PIECE_O);
+            getInput(PIECE_O, TREE);
             game.checkGameOver();
             printBoard();
             cout << game.evaluateScore() << endl;
@@ -46,7 +48,7 @@ void SuperTicTacToe::printBoard()
 }
 
 //gets input from player
-void SuperTicTacToe::getPlayerInput()
+void SuperTicTacToe::getPlayerInput(Piece p)
 {
     bool inputIsValid = false;
     Move m;
@@ -85,62 +87,38 @@ void SuperTicTacToe::getPlayerInput()
         }
     }
     //put their piece onto the board
-    game.changeBoardPiece(m, PIECE_X);
+    game.changeBoardPiece(m, p);
 
 }
 
 //gets computer input
-void SuperTicTacToe::getCompInput()
+void SuperTicTacToe::getCompInput(Piece p)
 {
-    /*
-    bool inputIsValid = false;
-    Move m;
-    m.board = -1; //cell
-    m.square = -1; //space
-    while (!inputIsValid) {
-        if (game.cellKnown) {
-            m.board = game.m_cell;
-
-            //picks a space number
-            for (int i = 0; i < BOARD_SIZE; i++) {
-                m.board = game.m_cell;
-                m.square = i;
-                if (game.charAt(m) == '-') {
-                    inputIsValid = true;
-                    m.board = game.m_cell;
-                    m.square = i;
-		    //end the for loop
-                    i = BOARD_SIZE;
-                }
-            }
-        }
-        else {
-            for (int i = 0; i < BOARD_SIZE; i++) {
-                for (int j = 0; j < BOARD_SIZE; j++) {
-                    m.board = i;
-                    m.square = j;
-		    if (game.charAt(m) == '-') {
-                        inputIsValid = true;
-                        m.board = i;
-                        m.square = j;
-			//end the for loop
-                        i = BOARD_SIZE;
-                        j = BOARD_SIZE;
-                    }
-                }
-            }
-        }
-    }
-    game.changeBoardPiece(m, PIECE_O);
-    */
-  /*    vector<Move> g = game.getPotentialMoves();
-    int size = g.size();
-    int selection = rand() % size;
-    game.changeBoardPiece(g[selection], PIECE_O);*/
   const Move myMove = minimax(game, 4);
-  game.changeBoardPiece(myMove,PIECE_O);
+  game.changeBoardPiece(myMove, p);
 }
 
+//gets random input
+void SuperTicTacToe::getRandInput(Piece p)
+{
+    vector<Move> g = game.getPotentialMoves();
+    int size = g.size();
+    int selection = rand() % size;
+    game.changeBoardPiece(g[selection], p);
+}
 
+void SuperTicTacToe::getInput(Piece p, moveType t)
+{
+    if (t == USER) {
+        getPlayerInput(p);
+    }
+    else if (t == RANDOM) {
+        getRandInput(p);
+    }
+    else if (t == TREE) {
+        getCompInput(p);
+    }
+    else {}
+}
 
 

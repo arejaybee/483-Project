@@ -10,6 +10,12 @@
 using namespace std;
 const int NUM_LAYERS = 3;
 
+enum moveType {
+    USER,
+    RANDOM,
+    TREE
+};
+
 class SuperTicTacToe
 {
     public:
@@ -22,13 +28,18 @@ class SuperTicTacToe
         //prints out the board to terminal
         void printBoard();
 
-        //gets input from player
-        void getPlayerInput();
-
-        //gets computer input
-        void getCompInput();
+        void getInput(Piece p, moveType t);
 
     private:
+        //gets input from player
+        void getPlayerInput(Piece p);
+
+        //gets computer input
+        void getCompInput(Piece p);
+
+        //gets random input
+        void getRandInput(Piece p);
+
         GameState game;
 };
 
