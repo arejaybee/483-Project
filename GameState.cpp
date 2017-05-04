@@ -10,16 +10,8 @@ GameState::GameState() : gameOver(false) , cellKnown(false) , m_cell(-1) , board
     }
 }
 
-GameState::GameState(GameState *g)
-{
-  gameOver = g->gameOver;
-  cellKnown = g->cellKnown;
-  m_cell = g->m_cell;
-  board = g->board;
-  lastMove = g->lastMove;
-}
 
-void GameState::printBoard()
+void GameState::printBoard() const
 {
     cout << " _____________________________\n\n";
 
@@ -48,12 +40,12 @@ void GameState::printBoard()
     cout << endl << endl;
 }
 
-char GameState::charAt(Move m)
+char GameState::charAt(Move m) const
 {
     return board.at(m.board).at(m.square);
 }
 
-vector<Move> GameState::getPotentialMoves()
+vector<Move> GameState::getPotentialMoves() const
 {
   vector<Move> potentialMoves;
   Move tempMove;
@@ -82,7 +74,7 @@ vector<Move> GameState::getPotentialMoves()
   return potentialMoves;
 }
 
-vector<GameState> GameState::getPotentialChildren()
+vector<GameState> GameState::getPotentialChildren() const
 {
   vector<GameState> children;
 
@@ -99,7 +91,7 @@ vector<GameState> GameState::getPotentialChildren()
   return children;
 }
 
-Piece GameState::getTurn()
+Piece GameState::getTurn() const
 {
   if (board[lastMove.board][lastMove.square] == PIECE_X) {
     return PIECE_O;
@@ -112,7 +104,7 @@ Piece GameState::getTurn()
   }
 }
 
-int GameState::evaluateScore()
+int GameState::evaluateScore() const
 {
   int score = 0;
   
