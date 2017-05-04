@@ -29,6 +29,7 @@ void SuperTicTacToe::play()
             getCompInput();
             game.checkGameOver();
             printBoard();
+            cout << game.evaluateScore() << endl;
 
             if (game.gameOver) {
                 cout << "Computer wins!" << endl;
