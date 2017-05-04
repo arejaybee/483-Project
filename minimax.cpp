@@ -67,8 +67,7 @@ minimax(const GameState &node, std::size_t max_depth)
     if (turn == PIECE_O)
         candidate.second = std::numeric_limits<int>::max();
 
-    for (std::vector<Move>::const_iterator it = moves.begin(); it != moves.end();
-            ++it) {
+    for (std::vector<Move>::const_iterator it = moves.begin(); it != moves.end(); ++it) {
         GameState child = node;
         child.changeBoardPiece(*it, node.getTurn());
         const int v = minimax_evaluate(child, max_depth - 1,
