@@ -66,7 +66,7 @@ minimax(const GameState &node, std::size_t max_depth)
     std::pair<std::size_t, int> candidate(0, std::numeric_limits<int>::min());
 
     if (turn == PIECE_O)
-	candidate.second = -candidate.second;
+	candidate.second = std::numeric_limits<int>::max();
 
     for (std::vector<Move>::const_iterator it = moves.begin(); it != moves.end();
 	 ++it) {
