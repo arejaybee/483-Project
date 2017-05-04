@@ -17,9 +17,10 @@ void SuperTicTacToe::play()
     while (!game.gameOver) {
         //player goes first
         //getPlayerInput(PIECE_X);
-        getInput(PIECE_X, RANDOM);
+        getInput(PIECE_X, USER);
         printBoard();
         game.checkGameOver();
+        cout << game.evaluateScore(PIECE_X) << endl;
 
         //if the player won, game can end and tell them they won
         if (game.gameOver) {
@@ -31,7 +32,7 @@ void SuperTicTacToe::play()
             getInput(PIECE_O, TREE);
             game.checkGameOver();
             printBoard();
-            cout << game.evaluateScore() << endl;
+            cout << game.evaluateScore(PIECE_O) << endl;
 
             if (game.gameOver) {
                 cout << "Computer wins!" << endl;

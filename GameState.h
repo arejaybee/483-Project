@@ -59,7 +59,7 @@ class GameState
   Piece getTurn() const;
   
   //determines how many points to give a computer for their min/max tree
-  int evaluateScore() const;
+  int evaluateScore(Piece p) const;
 
   //changes a piece of the board based on input
   void changeBoardPiece(Move move, Piece piece);

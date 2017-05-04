@@ -13,13 +13,13 @@ minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
 {
   //if we hit the bottom of the tree, evaluate the score
     if (depth == 0)
-        return node.evaluateScore();
+        return node.evaluateScore(PIECE_O);
     //get the children from this state
     const std::vector<GameState> children = node.getPotentialChildren();
 
     //if there are no children, this is a terminal node
     if (children.empty())
-        return node.evaluateScore();
+        return node.evaluateScore(PIECE_O);
 
     //whos turn is it?
     const Piece turn = node.getTurn();

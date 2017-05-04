@@ -104,7 +104,7 @@ vector<GameState> GameState::getPotentialChildren() const
   
   //for each move, generate a gamestate where that move was taken
   for (int i = 0; i < numPossibleMoves; i++) {
-    cout << possibleMoves[i].board << ", " << possibleMoves[i].square << endl;
+    //cout << possibleMoves[i].board << ", " << possibleMoves[i].square << endl;
     GameState tempGameState = GameState(*this);
     tempGameState.changeBoardPiece(possibleMoves[i], getTurn());
     children.push_back(tempGameState);
@@ -129,150 +129,157 @@ Piece GameState::getTurn() const
 }
 
 //determine the score of this boardstate (for computer's min/max tree)
-int GameState::evaluateScore() const
+int GameState::evaluateScore(Piece p) const
 {
+  string c;
+  if (p == PIECE_X) {
+    c = CELL_X;
+  }
+  else if (p == PIECE_O) {
+    c = CELL_O;
+  }
   int score = 0;
   
   for(int i = 0; i < BOARD_SIZE; i++) {
     //for winning any board, you get SMALL_BOARD_WIN points
-    if(board[i] == CELL_O) {
+    if(board[i] == c) {
       score += SMALL_BOARD_WIN;
     }
 
     //if 2/3 squares are PIECE_O, you get TWO_PARTS_OF_A_BOARD points
-    if(board[i][0] == PIECE_O) {
+    if(board[i][0] == p) {
       for(int j = 1; j < 9; j++) {
-        if(board[i][j] == PIECE_O && j != 5 && j!= 7) {
+        if(board[i][j] == p && j != 5 && j!= 7) {
           score += TWO_PARTS_OF_A_BOARD;
         }
       }
     }
-    if(board[i][1] == PIECE_O) {
+    if(board[i][1] == p) {
       for(int j = 2; j < 9; j++) {
-        if(board[i][j] == PIECE_O && j != 3 && j!= 5 && j!=6 && j!=8) {
+        if(board[i][j] == p && j != 3 && j!= 5 && j!=6 && j!=8) {
           score += TWO_PARTS_OF_A_BOARD;
         }
       }
     }
-    if(board[i][2] == PIECE_O) {
+    if(board[i][2] == p) {
       for(int j = 3; j < 9; j++) {
-        if(board[i][j] == PIECE_O && j!= 7) {
+        if(board[i][j] == p && j!= 7) {
           score += TWO_PARTS_OF_A_BOARD;
         }
       }
     }
-    if(board[i][3] == PIECE_O) {
+    if(board[i][3] == p) {
       for(int j = 4; j < 9; j++) {
-        if(board[i][j] == PIECE_O && j!= 7 && j!=8) {
+        if(board[i][j] == p && j!= 7 && j!=8) {
           score += TWO_PARTS_OF_A_BOARD;
         }
       }
     }
-    if(board[i][4] == PIECE_O) {
+    if(board[i][4] == p) {
       for(int j = 5; j < 9; j++) {
-        if(board[i][j] == PIECE_O) {
+        if(board[i][j] == p) {
           score += TWO_PARTS_OF_A_BOARD;
         }
       }
     }
-    if(board[i][5] == PIECE_O) {
+    if(board[i][5] == p) {
       for(int j = 6; j < 9; j++) {
-        if(board[i][j] == PIECE_O && j!= 7) {
+        if(board[i][j] == p && j!= 7) {
           score += TWO_PARTS_OF_A_BOARD;
         }
       }
     }
-    if(board[i][6] == PIECE_O) {
+    if(board[i][6] == p) {
       for(int j = 7; j < 9; j++) {
-        if(board[i][j] == PIECE_O) {
+        if(board[i][j] == p) {
           score += TWO_PARTS_OF_A_BOARD;
         }
       }
     }
-    if(board[i][7] == PIECE_O) {
+    if(board[i][7] == p) {
       for(int j = 8; j < 9; j++) {
-        if(board[i][j] == PIECE_O) {
+        if(board[i][j] == p) {
           score += TWO_PARTS_OF_A_BOARD;
         }
       }
     }
     
     //if the center is an O you get an additional CENTER_SQUARE_IN_SMALL_BOARD points
-    if(board[i][4] == PIECE_O) {
+    if(board[i][4] == p) {
       score += CENTER_SQUARE_IN_SMALL_BOARD;
     }
   }
 
   //gain SQUARE_IN_CENTER_BOARD points for every square you own in the center board
   for (int i = 0; i < BOARD_SIZE; i++) {
-    if (board[4][i] == PIECE_O) {
+    if (board[4][i] == p) {
       score += SQUARE_IN_CENTER_BOARD;
     }
   }
 
   //winning the center board is an additional MIDDLE_BOARD_WIN points
-  if(board[4] == CELL_O) {
+  if(board[4] == c) {
     score += MIDDLE_BOARD_WIN;
   }
   
   //winning a corner is an additional CORNER_BOARD_WIN points
-  if(board[0] == CELL_O || board[2] == CELL_O || board[6] == CELL_O || board[8] == CELL_O) {
+  if(board[0] == c || board[2] == c || board[6] == c || board[8] == c) {
     score += CORNER_BOARD_WIN;
   }
   
   //if you have 2/3 parts needed to win, thats TWO_PARTS_OF_A_WIN points
-  if(board[0] == CELL_O) {
+  if(board[0] == c) {
     for(int j = 1; j < 9; j++) {
-      if(board[j] == CELL_O && j != 5 && j!= 7) {
+      if(board[j] == c && j != 5 && j!= 7) {
         score += TWO_PARTS_OF_A_WIN;
       }
     }
   }
-  if(board[1] == CELL_O) {
+  if(board[1] == c) {
     for(int j = 2; j < 9; j++) {
-      if(board[j] == CELL_O && j != 3 && j!= 5 && j!=6 && j!=8) {
+      if(board[j] == c && j != 3 && j!= 5 && j!=6 && j!=8) {
         score += TWO_PARTS_OF_A_WIN;
       }
     }
   }
-  if(board[2] == CELL_O) {
+  if(board[2] == c) {
     for(int j = 3; j < 9; j++) {
-      if(board[j] == CELL_O && j!= 7) {
+      if(board[j] == c && j!= 7) {
         score += TWO_PARTS_OF_A_WIN;
       }
     }
   }
-  if(board[3] == CELL_O) {
+  if(board[3] == c) {
     for(int j = 4; j < 9; j++) {
-      if(board[j] == CELL_O && j!= 7 && j!=8) {
+      if(board[j] == c && j!= 7 && j!=8) {
         score += TWO_PARTS_OF_A_WIN;
       }
     }
   }
-  if(board[4] == CELL_O) {
+  if(board[4] == c) {
     for(int j = 5; j < 9; j++) {
-      if(board[j] == CELL_O) {
+      if(board[j] == c) {
         score += TWO_PARTS_OF_A_WIN;
       }
     }
   }
-  if(board[5] == CELL_O) {
+  if(board[5] == c) {
     for(int j = 6; j < 9; j++) {
-      if(board[j] == CELL_O && j!= 7) {
+      if(board[j] == c && j!= 7) {
         score += TWO_PARTS_OF_A_WIN;
       }
     }
   }
-  if(board[6] == CELL_O) {
+  if(board[6] == c) {
     for(int j = 7; j < 9; j++) {
-      if(board[j] == CELL_O) {
+      if(board[j] == c) {
         score += TWO_PARTS_OF_A_WIN;
       }
     }
   }
-  if(board[7] == CELL_O) {
+  if(board[7] == c) {
     for(int j = 8; j < 9; j++) {
-      if(board[j] == CELL_O) {
+      if(board[j] == c) {
         score += TWO_PARTS_OF_A_WIN;
       }
     }
