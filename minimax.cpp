@@ -72,10 +72,8 @@ minimax(const GameState &node, std::size_t max_depth)
     if (turn == PIECE_O)
         candidate.second = std::numeric_limits<int>::min();
 
-    for (std::vector<GameState>::const_iterator it = children.begin();
-            it != children.end(); ++it) {
-        const int v = minimax_evaluate(*it, max_depth - 1,
-                std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
+    for (std::vector<GameState>::const_iterator it = children.begin(); it != children.end(); ++it) {
+        const int v = minimax_evaluate(*it, max_depth - 1, std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
 
         if (turn == PIECE_X && v < candidate.second)
             candidate = std::make_pair(it->lastMove, v);

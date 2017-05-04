@@ -30,6 +30,11 @@ void SuperTicTacToe::play()
         else {
             //getCompInput(PIECE_O);
 	  cout<<"Is cell known? "<<game.cellKnown<<endl;
+            vector<Move> possibleMoves = game.getPotentialMoves();
+            for (unsigned int i = 0; i < possibleMoves.size(); i++) {
+                cout << "[" << possibleMoves[i].board << ", " << possibleMoves[i].square << "], ";
+            }
+            cout << endl;
             getInput(PIECE_O, TREE);
             game.checkGameOver();
             printBoard();
@@ -97,10 +102,10 @@ void SuperTicTacToe::getPlayerInput(Piece p)
 void SuperTicTacToe::getCompInput(Piece p)
 {
   vector<Move> g = game.getPotentialMoves();
-  cout<<"I can move to: "<<endl;
+  //cout<<"I can move to: "<<endl;
   for(unsigned int i = 0; i < g.size(); i++)
     {
-      cout<<g[i].board<<" , "<<g[i].square<<endl;
+      //cout<<g[i].board<<" , "<<g[i].square<<endl;
     }
 
   const Move myMove = minimax(game, 4);
