@@ -45,12 +45,12 @@ minimax(const GameState &node, std::size_t max_depth)
     // get the children
     const std::vector<GameState> children = node.getPotentialChildren();
 
-    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::min());
+    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::max());
 
     for (std::vector<GameState>::const_iterator it = children.begin(); it != children.end(); ++it) {
         const int v = negamax(*it, max_depth, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false);
 
-        if (v > candidate.second) {
+        if (v < candidate.second) {
             candidate.second = v;
             candidate.first = it->lastMove;
         }
