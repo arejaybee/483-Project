@@ -1,7 +1,6 @@
 #include "minimax.hpp"
 
 #include <limits>
-#include <stdexcept>
 
 
 namespace
