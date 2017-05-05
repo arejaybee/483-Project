@@ -46,18 +46,18 @@ minimax(const GameState &node, std::size_t max_depth)
     // get the children
     const std::vector<GameState> children = node.getPotentialChildren();
 
-    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::max());
+    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::min());
 
     for (std::vector<GameState>::const_iterator it = children.begin(); it != children.end(); ++it) {
-        const int v = negamax(*it, max_depth, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false);
+        const int v = negamax(*it, max_depth, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), true);
 
-        if (v < candidate.second) {
+        if (v > candidate.second) {
             candidate.second = v;
             candidate.first = it->lastMove;
         }
     }
 
-    if (candidate.second == std::numeric_limits<int>::max())
+    if (candidate.second == std::numeric_limits<int>::min())
         throw std::logic_error("did not find any moves");
 
     return candidate.first;
