@@ -1,6 +1,7 @@
 #include "minimax.hpp"
 
 #include <limits>
+#include <stdexcept>
 
 
 namespace
@@ -55,6 +56,9 @@ minimax(const GameState &node, std::size_t max_depth)
             candidate.first = it->lastMove;
         }
     }
+
+    if (candidate.second == std::numeric_limits<int>::max())
+        throw std::logic_error("did not find any moves");
 
     return candidate.first;
 }
