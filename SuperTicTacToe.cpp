@@ -20,7 +20,7 @@ void SuperTicTacToe::play()
         getInput(PIECE_X, USER);
         printBoard();
         game.checkGameOver();
-        cout << game.evaluateScore(PIECE_X) << endl;
+        //cout << "Score: "<<game.evaluateScore(PIECE_X) << endl;
 	
         //if the player won, game can end and tell them they won
         if (game.gameOver) {
@@ -28,17 +28,18 @@ void SuperTicTacToe::play()
         }
         //let the computer go
         else {
-            //getCompInput(PIECE_O);
-	  cout<<"Is cell known? "<<game.cellKnown<<endl;
-            vector<Move> possibleMoves = game.getPotentialMoves();
+	  //getCompInput(PIECE_O);
+	  /*cout<<"Is cell known? "<<game.cellKnown<<endl;
+	   vector<Move> possibleMoves = game.getPotentialMoves();
             for (unsigned int i = 0; i < possibleMoves.size(); i++) {
                 cout << "[" << possibleMoves[i].board << ", " << possibleMoves[i].square << "], ";
-            }
-            cout << endl;
+		}
+		cout << endl;*/
             getInput(PIECE_O, TREE);
             game.checkGameOver();
+	    cout<<"The computer will go to "<<game.lastMove.board<<" "<<game.lastMove.square<<endl;
             printBoard();
-            cout << game.evaluateScore(PIECE_O) << endl;
+            //cout << "Score: "<<game.evaluateScore(PIECE_O) << endl;
 
             if (game.gameOver) {
                 cout << "Computer wins!" << endl;

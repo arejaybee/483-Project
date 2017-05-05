@@ -132,18 +132,35 @@ Piece GameState::getTurn() const
 int GameState::evaluateScore(Piece p) const
 {
   string c;
+  string oc;
+  Piece op;
   if (p == PIECE_X) {
     c = CELL_X;
+    oc = CELL_O;
+    op = PIECE_O;
   }
   else if (p == PIECE_O) {
     c = CELL_O;
+    oc = CELL_X;
+    op = PIECE_X;
   }
   int score = 0;
-  
+  Piece turn  = getTurn();
+  if(turn == p && gameOver)
+    {
+      score += 1000;
+    }
+  else if(turn == op && gameOver)
+    {
+      score -= 1000;
+    }
   for(int i = 0; i < BOARD_SIZE; i++) {
     //for winning any board, you get SMALL_BOARD_WIN points
     if(board[i] == c) {
       score += SMALL_BOARD_WIN;
+    }
+    else if(board[i] == oc){
+      score -= SMALL_BOARD_WIN;
     }
 
     //if 2/3 squares are PIECE_O, you get TWO_PARTS_OF_A_BOARD points
@@ -203,10 +220,71 @@ int GameState::evaluateScore(Piece p) const
         }
       }
     }
+
+    //this section loses points if the player has those spots
+    if(board[i][0] == op) {
+      for(int j = 1; j < 9; j++) {
+        if(board[i][j] == op && j != 5 && j!= 7) {
+          score -= TWO_PARTS_OF_A_BOARD;
+        }
+      }
+    }
+    if(board[i][1] == op) {
+      for(int j = 2; j < 9; j++) {
+        if(board[i][j] == op && j != 3 && j!= 5 && j!=6 && j!=8) {
+          score -= TWO_PARTS_OF_A_BOARD;
+        }
+      }
+    }
+    if(board[i][2] == op) {
+      for(int j = 3; j < 9; j++) {
+        if(board[i][j] == op && j!= 7) {
+          score -= TWO_PARTS_OF_A_BOARD;
+        }
+      }
+    }
+    if(board[i][3] == op) {
+      for(int j = 4; j < 9; j++) {
+        if(board[i][j] == op && j!= 7 && j!=8) {
+          score -= TWO_PARTS_OF_A_BOARD;
+        }
+      }
+    }
+    if(board[i][4] == op) {
+      for(int j = 5; j < 9; j++) {
+        if(board[i][j] == op) {
+          score -= TWO_PARTS_OF_A_BOARD;
+        }
+      }
+    }
+    if(board[i][5] == op) {
+      for(int j = 6; j < 9; j++) {
+        if(board[i][j] == op && j!= 7) {
+          score -= TWO_PARTS_OF_A_BOARD;
+        }
+      }
+    }
+    if(board[i][6] == op) {
+      for(int j = 7; j < 9; j++) {
+        if(board[i][j] == op) {
+          score -= TWO_PARTS_OF_A_BOARD;
+        }
+      }
+    }
+    if(board[i][7] == op) {
+      for(int j = 8; j < 9; j++) {
+        if(board[i][j] == op) {
+          score -= TWO_PARTS_OF_A_BOARD;
+        }
+      }
+    }
     
     //if the center is an O you get an additional CENTER_SQUARE_IN_SMALL_BOARD points
     if(board[i][4] == p) {
       score += CENTER_SQUARE_IN_SMALL_BOARD;
+    }
+    else if(board[i][4] == op) {
+      score -= CENTER_SQUARE_IN_SMALL_BOARD;
     }
   }
 
@@ -215,16 +293,25 @@ int GameState::evaluateScore(Piece p) const
     if (board[4][i] == p) {
       score += SQUARE_IN_CENTER_BOARD;
     }
+    else if (board[4][i] == op) {
+      score -= SQUARE_IN_CENTER_BOARD;
+    }
   }
 
   //winning the center board is an additional MIDDLE_BOARD_WIN points
   if(board[4] == c) {
     score += MIDDLE_BOARD_WIN;
   }
+  if(board[4] == oc) {
+    score -= MIDDLE_BOARD_WIN;
+  }
   
   //winning a corner is an additional CORNER_BOARD_WIN points
   if(board[0] == c || board[2] == c || board[6] == c || board[8] == c) {
     score += CORNER_BOARD_WIN;
+  }
+  else if(board[0] == oc || board[2] == oc || board[6] == oc || board[8] == oc) {
+    score -= CORNER_BOARD_WIN;
   }
   
   //if you have 2/3 parts needed to win, thats TWO_PARTS_OF_A_WIN points
@@ -281,6 +368,65 @@ int GameState::evaluateScore(Piece p) const
     for(int j = 8; j < 9; j++) {
       if(board[j] == c) {
         score += TWO_PARTS_OF_A_WIN;
+      }
+    }
+  }
+
+  //this section loses points for the player having corner
+
+   if(board[0] == oc) {
+    for(int j = 1; j < 9; j++) {
+      if(board[j] == oc && j != 5 && j!= 7) {
+        score -= TWO_PARTS_OF_A_WIN;
+      }
+    }
+  }
+  if(board[1] == oc) {
+    for(int j = 2; j < 9; j++) {
+      if(board[j] == oc && j != 3 && j!= 5 && j!=6 && j!=8) {
+        score -= TWO_PARTS_OF_A_WIN;
+      }
+    }
+  }
+  if(board[2] == oc) {
+    for(int j = 3; j < 9; j++) {
+      if(board[j] == oc && j!= 7) {
+        score -= TWO_PARTS_OF_A_WIN;
+      }
+    }
+  }
+  if(board[3] == oc) {
+    for(int j = 4; j < 9; j++) {
+      if(board[j] == oc && j!= 7 && j!=8) {
+        score -= TWO_PARTS_OF_A_WIN;
+      }
+    }
+  }
+  if(board[4] == oc) {
+    for(int j = 5; j < 9; j++) {
+      if(board[j] == oc) {
+        score -= TWO_PARTS_OF_A_WIN;
+      }
+    }
+  }
+  if(board[5] == oc) {
+    for(int j = 6; j < 9; j++) {
+      if(board[j] == oc && j!= 7) {
+        score -= TWO_PARTS_OF_A_WIN;
+      }
+    }
+  }
+  if(board[6] == oc) {
+    for(int j = 7; j < 9; j++) {
+      if(board[j] == oc) {
+        score -= TWO_PARTS_OF_A_WIN;
+      }
+    }
+  }
+  if(board[7] == oc) {
+    for(int j = 8; j < 9; j++) {
+      if(board[j] == oc) {
+        score -= TWO_PARTS_OF_A_WIN;
       }
     }
   }
