@@ -1,6 +1,7 @@
 #include "minimax.hpp"
 
 #include <limits>
+#include <stdexcept>
 
 
 namespace
@@ -8,52 +9,31 @@ namespace
 
 
 static int
-minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
-        int beta)
+negamax(const GameState &node, const std::size_t depth, int alpha, int beta, const bool color_flag)
 {
-  //if we hit the bottom of the tree, evaluate the score
+    const int color = 1 ? color_flag : -1;
+
     if (depth == 0)
-        return node.evaluateScore(PIECE_O);
-    //get the children from this state
+        return color * node.evaluateScore(node.getTurn());
+
     const std::vector<GameState> children = node.getPotentialChildren();
 
-    //if there are no children, this is a terminal node
     if (children.empty())
-        return node.evaluateScore(PIECE_O);
+        return color * node.evaluateScore(node.getTurn());
 
-    //whos turn is it?
-    const Piece turn = node.getTurn();
+    int best_value = std::numeric_limits<int>::min();
 
-    //if it is the player's turn, minimize
-    if (turn == PIECE_X) {
-        int v = std::numeric_limits<int>::max();
+    for (std::vector<GameState>::const_iterator it = children.begin(); it != children.end(); ++it) {
+        const int v = -negamax(*it, depth - 1, -beta, -alpha, !color_flag);
 
-        for (std::vector<GameState>::const_iterator it = children.begin();
-                it != children.end(); ++it) {
-            v = std::min(v, minimax_evaluate(*it, depth - 1, alpha, beta));
-            alpha = std::min(alpha, v);
+        best_value = std::max(best_value, v);
+        alpha = std::max(alpha, v);
 
-            if (beta <= alpha)
-                break;
-        }
-
-        return v;
+        if (alpha >= beta)
+            break;
     }
-    //it is the AI's turn, maximize
-    else {
-        int v = std::numeric_limits<int>::max();
 
-        for (std::vector<GameState>::const_iterator it = children.begin();
-                it != children.end(); ++it) {
-            v = std::min(v, minimax_evaluate(*it, depth - 1, alpha, beta));
-            beta = std::max(beta, v);
-
-            if (beta <= alpha)
-                break;
-        }
-
-        return v;
-    }
+    return best_value;
 }
 
 
@@ -63,22 +43,18 @@ minimax_evaluate(const GameState &node, const std::size_t depth, int alpha,
 Move
 minimax(const GameState &node, std::size_t max_depth)
 {
-  //whos turn is it?
-    const Piece turn = node.getTurn();
-    //get the children
+    // get the children
     const std::vector<GameState> children = node.getPotentialChildren();
-    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::max());
 
-    if (turn == PIECE_O)
-        candidate.second = std::numeric_limits<int>::min();
+    std::pair<Move, int> candidate(Move(), std::numeric_limits<int>::min());
 
     for (std::vector<GameState>::const_iterator it = children.begin(); it != children.end(); ++it) {
-        const int v = minimax_evaluate(*it, max_depth - 1, std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
+        const int v = negamax(*it, max_depth, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false);
 
-        if (turn == PIECE_X && v < candidate.second)
-            candidate = std::make_pair(it->lastMove, v);
-        else if (turn == PIECE_O && v > candidate.second)
-            candidate = std::make_pair(it->lastMove, v);
+        if (v > candidate.second) {
+            candidate.second = v;
+            candidate.first = it->lastMove;
+        }
     }
 
     return candidate.first;
