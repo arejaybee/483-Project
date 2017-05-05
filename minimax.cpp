@@ -13,12 +13,12 @@ negamax(const GameState &node, const std::size_t depth, int alpha,
         const int beta)
 {
     if (depth == 0)
-        return node.evaluateScore(node.getTurn());
+        return -node.evaluateScore(node.getTurn());
 
     const std::vector<GameState> children = node.getPotentialChildren();
 
     if (children.empty())
-        return node.evaluateScore(node.getTurn());
+        return -node.evaluateScore(node.getTurn());
 
     int best_value = std::numeric_limits<int>::min() + 1;
 
