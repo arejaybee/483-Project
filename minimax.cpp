@@ -14,12 +14,12 @@ negamax(const GameState &node, const std::size_t depth, int alpha,
 {
   //at the bottom of the tree, evaluate their score
     if (depth == 0)
-        return -node.evaluateScore(node.getTurn());
+        return node.evaluateScore(node.getTurn());
     //get the children of this node
     const std::vector<GameState> children = node.getPotentialChildren();
     //if there are no children, just evaluate
     if (children.empty())
-        return -node.evaluateScore(node.getTurn());
+        return node.evaluateScore(node.getTurn());
     
     int best_value = std::numeric_limits<int>::min() + 1;
     
