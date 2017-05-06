@@ -3,7 +3,7 @@
 using namespace std;
 
 //generic constructor
-GameState::GameState() : gameOver(false) , cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
+GameState::GameState() : gameOver(false) , gameTie(false) , cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {
@@ -12,9 +12,10 @@ GameState::GameState() : gameOver(false) , cellKnown(false) , m_cell(-1) , board
 }
 
 //copy constructor
-GameState::GameState(GameState *g) : gameOver(false) , cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
+GameState::GameState(GameState *g) : gameOver(false) , gameTie(false), cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
 {
   gameOver = g->gameOver;
+  gameTie = g->gameTie;
   cellKnown = g->cellKnown;
   m_cell = g->m_cell;
   board = g->board;

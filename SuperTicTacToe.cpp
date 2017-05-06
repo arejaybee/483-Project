@@ -22,9 +22,12 @@ void SuperTicTacToe::play()
         //cout << "Score: "<<game.evaluateScore(PIECE_X) << endl;
 	
         //if the player won, game can end and tell them they won
-        if (game.gameOver) {
+        if (game.gameOver && !game.gameTie) {
             cout << "Player wins!" << endl;
         }
+	else if(game.gameTie){
+	    cout<<"Its a tie!"<<endl;
+	  }
         //let the computer go
         else {
 	  //getCompInput(PIECE_O);
@@ -35,13 +38,15 @@ void SuperTicTacToe::play()
 		}
 		cout << endl;*/
             getInput(PIECE_O, TREE);
-	    cout<<"The computer will go to "<<game.lastMove.board<<" "<<game.lastMove.square<<endl;
             printBoard();
             //cout << "Score: "<<game.evaluateScore(PIECE_O) << endl;
 
-            if (game.gameOver) {
+            if (game.gameOver && !game.gameTie) {
                 cout << "Computer wins!" << endl;
             }
+	    else if(game.gameTie){
+	    cout<<"Its a tie!"<<endl;
+	  }
         }
     }
 }
@@ -109,6 +114,8 @@ void SuperTicTacToe::getCompInput(Piece p)
 
   const Move myMove = minimax(game, 6);
   game.changeBoardPiece(myMove, p);
+  cout<<"The computer will go to "<<game.lastMove.board<<" "<<game.lastMove.square<<endl;
+	    
 }
 
 //gets random input
@@ -118,6 +125,7 @@ void SuperTicTacToe::getRandInput(Piece p)
     int size = g.size();
     int selection = rand() % size;
     game.changeBoardPiece(g[selection], p);
+    cout<<"The computer will go to "<<game.lastMove.board<<" "<<game.lastMove.square<<endl;
 }
 
 void SuperTicTacToe::getInput(Piece p, moveType t)

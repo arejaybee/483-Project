@@ -23,9 +23,10 @@ negamax(const GameState &node, const std::size_t depth, int alpha,
     int best_value = std::numeric_limits<int>::min() + 1;
     
     //loop through the children
-    for (std::vector<GameState>::const_iterator it = children.begin();
-            it != children.end(); ++it) {
-      const int v = -negamax(*it,depth - 1, -beta, -alpha);
+    /*for (std::vector<GameState>::const_iterator it = children.begin();
+      it != children.end(); ++it) {*/
+    for(unsigned int i = 0; i < children.size(); i++){
+      const int v = -negamax(children.at(i),depth - 1, -beta, -alpha);
 	
 	//update best_value to be the highest scoring child by the end of this loop
         best_value = std::max(best_value, v);

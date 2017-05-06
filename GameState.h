@@ -9,7 +9,7 @@ using namespace std;
 //WEIGHTS
 const int SMALL_BOARD_WIN = 10;              //In score evaluation
 const int MIDDLE_BOARD_WIN = 20;            //In score evaluation
-const int CORNER_BOARD_WIN = 6;             //In score evaluation
+const int CORNER_BOARD_WIN = 7;             //In score evaluation
 const int CENTER_SQUARE_IN_SMALL_BOARD = 3; //In score evaluation
 const int SQUARE_IN_CENTER_BOARD = 3;       //In score evaluation
 const int TWO_PARTS_OF_A_WIN = 8;           //In score evaluation
@@ -71,6 +71,7 @@ class GameState
   void checkGameOver();
   
   bool gameOver; //used to see if game has been won
+  bool gameTie;
   bool cellKnown; //if the cell a player must go to is known
   int m_cell; //the cell a player must go ot
   vector<string> board; //the overall board, each inner board will be a string
