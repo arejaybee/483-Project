@@ -146,6 +146,7 @@ int GameState::evaluateScore(Piece p) const
   }
   int score = 0;
   Piece turn  = getTurn();
+
   if(turn == p && gameOver)
     {
       score += 1000;
@@ -459,7 +460,7 @@ void GameState::changeBoardPiece(Move move, Piece piece)
     if (!flag) {
         cellKnown = false;
     }
-
+    checkGameOver();
     lastMove = move;
 }
 
@@ -540,8 +541,8 @@ void GameState::checkGameOver()
         won = true;
     }
 
-    if (board.at(2) == board.at(4) && board.at(2) == board.at(7)
-        && (board.at(0) == CELL_X || board.at(0) == CELL_O)) {
+    if (board.at(2) == board.at(4) && board.at(2) == board.at(6)
+        && (board.at(2) == CELL_X || board.at(2) == CELL_O)) {
         won = true;
     }
 

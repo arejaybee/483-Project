@@ -19,7 +19,6 @@ void SuperTicTacToe::play()
         //getPlayerInput(PIECE_X);
         getInput(PIECE_X, USER);
         printBoard();
-        game.checkGameOver();
         //cout << "Score: "<<game.evaluateScore(PIECE_X) << endl;
 	
         //if the player won, game can end and tell them they won
@@ -36,7 +35,6 @@ void SuperTicTacToe::play()
 		}
 		cout << endl;*/
             getInput(PIECE_O, TREE);
-            game.checkGameOver();
 	    cout<<"The computer will go to "<<game.lastMove.board<<" "<<game.lastMove.square<<endl;
             printBoard();
             //cout << "Score: "<<game.evaluateScore(PIECE_O) << endl;
@@ -104,12 +102,12 @@ void SuperTicTacToe::getCompInput(Piece p)
 {
   vector<Move> g = game.getPotentialMoves();
   //cout<<"I can move to: "<<endl;
-  for(unsigned int i = 0; i < g.size(); i++)
+  /*  for(unsigned int i = 0; i < g.size(); i++)
     {
-      //cout<<g[i].board<<" , "<<g[i].square<<endl;
-    }
+      cout<<g[i].board<<" , "<<g[i].square<<endl;
+      }*/
 
-  const Move myMove = minimax(game, 7);
+  const Move myMove = minimax(game, 5);
   game.changeBoardPiece(myMove, p);
 }
 
