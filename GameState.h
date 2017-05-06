@@ -8,7 +8,7 @@ using namespace std;
 
 //WEIGHTS
 const int SMALL_BOARD_WIN = 10;              //In score evaluation
-const int MIDDLE_BOARD_WIN = 500;            //In score evaluation
+const int MIDDLE_BOARD_WIN = 20;            //In score evaluation
 const int CORNER_BOARD_WIN = 6;             //In score evaluation
 const int CENTER_SQUARE_IN_SMALL_BOARD = 3; //In score evaluation
 const int SQUARE_IN_CENTER_BOARD = 3;       //In score evaluation

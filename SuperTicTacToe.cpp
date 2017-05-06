@@ -107,7 +107,7 @@ void SuperTicTacToe::getCompInput(Piece p)
       cout<<g[i].board<<" , "<<g[i].square<<endl;
       }*/
 
-  const Move myMove = minimax(game, 5);
+  const Move myMove = minimax(game, 6);
   game.changeBoardPiece(myMove, p);
 }
 
