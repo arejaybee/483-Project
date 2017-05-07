@@ -28,7 +28,8 @@ negamax(const GameState &node, const std::size_t depth, int alpha,
       it != children.end(); ++it) {*/
       omp_set_dynamic(0);
       omp_set_num_threads(4);
-    #pragma omp parallel for num_threads(4) {
+    #pragma omp parallel for num_threads(4)
+    {
         for(unsigned int i = 0; i < children.size(); i++){
             const int v = -negamax(children.at(i),depth - 1, -beta, -alpha);
             cout<<"There are: "<<omp_get_num_threads()<<" threads"<<endl;
