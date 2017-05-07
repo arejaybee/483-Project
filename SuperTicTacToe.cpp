@@ -5,6 +5,7 @@ using namespace std;
 SuperTicTacToe::SuperTicTacToe() : game(* (new GameState()))
 {
   //game = *(new GameState());
+  srand(time(NULL));
 }
 
 //plays the game
