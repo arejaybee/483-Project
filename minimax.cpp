@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <omp.h>
 
+const int NUM_THREADS = 4;
+
 Piece p;
 namespace
 {
@@ -27,11 +29,12 @@ negamax(const GameState &node, const std::size_t depth, int alpha,
     /*for (std::vector<GameState>::const_iterator it = children.begin();
       it != children.end(); ++it) {*/
       omp_set_dynamic(0);
-      omp_set_num_threads(4);
-    #pragma omp parallel for num_threads(4)
+      omp_set_num_threads(NUM_THREADS);
+    #pragma omp parallel for num_threads(NUM_THREADS)
     for(unsigned int i = 0; i < children.size(); i++){
         const int v = -negamax(children.at(i),depth - 1, -beta, -alpha);
-        cout<<"There are: "<<omp_get_num_threads()<<" threads "<<omp_get_thread_num()<<endl;
+        if (omp_get_thread_num() != 0)
+            cout<<"There are: "<<omp_get_num_threads()<<" threads "<<omp_get_thread_num()<<endl;
     //update best_value to be the highest scoring child by the end of this loop
         best_value = std::max(best_value, v);
         alpha = std::max(alpha, v);
