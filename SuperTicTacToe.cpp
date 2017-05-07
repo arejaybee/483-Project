@@ -17,7 +17,7 @@ void SuperTicTacToe::play()
     while (!game.gameOver) {
         //player goes first
         //getPlayerInput(PIECE_X);
-        getInput(PIECE_X, USER);
+        getInput(PIECE_X, RANDOM);
         printBoard();
         //cout << "Score: "<<game.evaluateScore(PIECE_X) << endl;
 	
@@ -134,6 +134,7 @@ void SuperTicTacToe::getInput(Piece p, moveType t)
         getPlayerInput(p);
     }
     else if (t == RANDOM) {
+      cout<<"Hit"<<endl;
         getRandInput(p);
     }
     else if (t == TREE) {
