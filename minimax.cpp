@@ -32,17 +32,14 @@ negamax(const GameState &node, const std::size_t depth, int alpha,
       omp_set_num_threads(NUM_THREADS);
       unsigned int i;
 #pragma omp parallel for private(i) num_threads(NUM_THREADS)
-    for(i = 0; i < children.size(); i++){
+    for (i = 0; i < children.size(); i++) {
+        if (alpha < beta) {
         const int v = -negamax(children.at(i),depth - 1, -beta, -alpha);
-        //if (omp_get_thread_num() != 0)
-            //cout<<"There are: "<<omp_get_num_threads()<<" threads "<<omp_get_thread_num()<<endl;
-    //update best_value to be the highest scoring child by the end of this loop
+
+        // update best_value to be the highest scoring child by the end of this loop
         best_value = std::max(best_value, v);
         alpha = std::max(alpha, v);
-
-    //alpha beta pruning
-        /*if (alpha >= beta)
-        break;*/
+        }
     }
 
     return best_value;
