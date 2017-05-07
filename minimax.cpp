@@ -10,12 +10,12 @@ namespace
 {
 
 
-const std::size_t NUM_THREADS = 2;
-
-
 static int
-negamax(const GameState &node, const std::size_t depth, int alpha, const int beta, const Piece piece)
+negamax(const GameState &node, const std::size_t depth, int alpha,
+        const int beta, const Piece piece)
 {
+    const std::size_t NUM_THREADS = 2;
+
     // at the bottom of the tree, evaluate their score
     if (depth == 0)
         return node.evaluateScore(piece);
@@ -32,6 +32,7 @@ negamax(const GameState &node, const std::size_t depth, int alpha, const int bet
     // loop through the children
     omp_set_dynamic(0);
     omp_set_num_threads(NUM_THREADS);
+
 #pragma omp parallel for num_threads(NUM_THREADS)
     for (std::size_t i = 0; i < children.size(); ++i) {
         if (alpha < beta) {
