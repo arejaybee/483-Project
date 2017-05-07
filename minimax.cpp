@@ -14,7 +14,7 @@ static int
 negamax(const GameState &node, const std::size_t depth, int alpha,
         const int beta, const Piece piece)
 {
-    const std::size_t NUM_THREADS = 2;
+  const std::size_t NUM_THREADS = 11;
 
     // at the bottom of the tree, evaluate their score
     if (depth == 0)

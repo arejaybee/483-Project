@@ -550,4 +550,35 @@ void GameState::checkGameOver()
     if (won) {
         gameOver = true;
     }
+
+    bool tie = true;
+    for(int i = 0; i < BOARD_SIZE; i++)
+      {
+	for(int j = 0; j <BOARD_SIZE; j++)
+	  {
+	    if(board[i][j] == '-')
+	      {
+		tie = false;
+	      }
+	  }
+      } 
+    if(tie)
+      {
+	gameTie = true;
+	gameOver = true;
+      }
+}
+void GameState::clearBoard()
+{
+  for(int i = 0; i < BOARD_SIZE; i++)
+    {
+      for(int j = 0; j < BOARD_SIZE; j++)
+	{
+	  board[i][j] = '-';
+	}
+    }
+  gameOver = false;
+  gameTie = false;
+  cellKnown = false;
+  lastMove = Move();
 }

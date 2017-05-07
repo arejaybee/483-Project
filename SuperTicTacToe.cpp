@@ -2,7 +2,7 @@
 using namespace std;
 
 //Constructor
-SuperTicTacToe::SuperTicTacToe() : game(* (new GameState()))
+SuperTicTacToe::SuperTicTacToe() : game(* (new GameState())) , aiWin(2)
 {
   //game = *(new GameState());
   srand(time(NULL));
@@ -11,6 +11,7 @@ SuperTicTacToe::SuperTicTacToe() : game(* (new GameState()))
 //plays the game
 void SuperTicTacToe::play()
 {
+  game.clearBoard();
     //prints out the board
     printBoard();
 
@@ -18,16 +19,18 @@ void SuperTicTacToe::play()
     while (!game.gameOver) {
         //player goes first
         //getPlayerInput(PIECE_X);
-        getInput(PIECE_X, RANDOM);
+        getInput(PIECE_X, USER);
         printBoard();
         //cout << "Score: "<<game.evaluateScore(PIECE_X) << endl;
 	
         //if the player won, game can end and tell them they won
         if (game.gameOver && !game.gameTie) {
             cout << "Player wins!" << endl;
+	    aiWin = -1;
         }
 	else if(game.gameTie){
 	    cout<<"Its a tie!"<<endl;
+	    aiWin = 0;
 	  }
         //let the computer go
         else {
@@ -44,9 +47,11 @@ void SuperTicTacToe::play()
 
             if (game.gameOver && !game.gameTie) {
                 cout << "Computer wins!" << endl;
+		aiWin = 1;
             }
 	    else if(game.gameTie){
 	    cout<<"Its a tie!"<<endl;
+	    aiWin = 0;
 	  }
         }
     }
@@ -128,14 +133,12 @@ void SuperTicTacToe::getRandInput(Piece p)
     game.changeBoardPiece(g[selection], p);
     cout<<"The computer will go to "<<game.lastMove.board<<" "<<game.lastMove.square<<endl;
 }
-
 void SuperTicTacToe::getInput(Piece p, moveType t)
 {
     if (t == USER) {
         getPlayerInput(p);
     }
     else if (t == RANDOM) {
-      cout<<"Hit"<<endl;
         getRandInput(p);
     }
     else if (t == TREE) {
@@ -143,5 +146,8 @@ void SuperTicTacToe::getInput(Piece p, moveType t)
     }
     else {}
 }
-
+int SuperTicTacToe::getAiWin()
+{
+  return aiWin;
+}
 

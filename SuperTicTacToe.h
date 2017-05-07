@@ -30,6 +30,7 @@ class SuperTicTacToe
 
         void getInput(Piece p, moveType t);
 
+	int getAiWin();
     private:
         //gets input from player
         void getPlayerInput(Piece p);
@@ -40,7 +41,12 @@ class SuperTicTacToe
         //gets random input
         void getRandInput(Piece p);
 
+	//gets the first available move
+	void getQuickInput(Piece p);
+
         GameState game;
+
+	int aiWin;
 };
 
 #endif

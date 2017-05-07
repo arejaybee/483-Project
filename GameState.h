@@ -7,12 +7,12 @@
 using namespace std;
 
 //WEIGHTS
-const int SMALL_BOARD_WIN = 10;              //In score evaluation
-const int MIDDLE_BOARD_WIN = 20;            //In score evaluation
+const int SMALL_BOARD_WIN = 5;              //In score evaluation
+const int MIDDLE_BOARD_WIN = 10;            //In score evaluation
 const int CORNER_BOARD_WIN = 7;             //In score evaluation
 const int CENTER_SQUARE_IN_SMALL_BOARD = 3; //In score evaluation
 const int SQUARE_IN_CENTER_BOARD = 3;       //In score evaluation
-const int TWO_PARTS_OF_A_WIN = 8;           //In score evaluation
+const int TWO_PARTS_OF_A_WIN = 12;           //In score evaluation
 const int TWO_PARTS_OF_A_BOARD = 2;         //In score evaluation
 
 const int BOARD_SIZE = 9;
@@ -69,6 +69,9 @@ class GameState
   
   //checks if there are three in a row on the super board
   void checkGameOver();
+
+  //for restarting the game
+  void clearBoard();
   
   bool gameOver; //used to see if game has been won
   bool gameTie;
