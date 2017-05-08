@@ -3,7 +3,7 @@
 using namespace std;
 
 //generic constructor
-GameState::GameState() : gameOver(false) , gameTie(false) , cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
+GameState::GameState() : gameOver(false) , gameTie(false) , cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) , lastPlayer(PIECE_EMPTY)
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {
@@ -12,7 +12,7 @@ GameState::GameState() : gameOver(false) , gameTie(false) , cellKnown(false) , m
 }
 
 //copy constructor
-GameState::GameState(GameState *g) : gameOver(false) , gameTie(false), cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) 
+GameState::GameState(GameState *g) : gameOver(false) , gameTie(false), cellKnown(false) , m_cell(-1) , board(BOARD_SIZE) , lastMove(Move()) , lastPlayer(PIECE_EMPTY)
 {
   gameOver = g->gameOver;
   gameTie = g->gameTie;
@@ -20,6 +20,7 @@ GameState::GameState(GameState *g) : gameOver(false) , gameTie(false), cellKnown
   m_cell = g->m_cell;
   board = g->board;
   lastMove = g->lastMove;
+  lastPlayer = g->lastPlayer;
 }
 
 //This is witchcraft
@@ -117,14 +118,15 @@ vector<GameState> GameState::getPotentialChildren() const
 //lets you know who's turn it is
 Piece GameState::getTurn() const
 {
-  if (board[lastMove.board][lastMove.square] == PIECE_X) {
+  if (lastPlayer == PIECE_X) {
     return PIECE_O;
   }
-  else if (board[lastMove.board][lastMove.square] == PIECE_O) {
+  else if (lastPlayer == PIECE_X) {
     return PIECE_X;
   }
   //for debugging, this should never happpen
   else {
+    //cout << board[lastMove.board][lastMove.square] << endl;
     return PIECE_EMPTY;
   }
 }
@@ -463,6 +465,7 @@ void GameState::changeBoardPiece(Move move, Piece piece)
     }
     checkGameOver();
     lastMove = move;
+    lastPlayer = piece;
 }
 
 void GameState::checkCellWon(int outerTile, Piece piece)
@@ -581,4 +584,5 @@ void GameState::clearBoard()
   gameTie = false;
   cellKnown = false;
   lastMove = Move();
+  lastPlayer = PIECE_EMPTY;
 }

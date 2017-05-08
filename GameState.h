@@ -79,6 +79,7 @@ class GameState
   int m_cell; //the cell a player must go ot
   vector<string> board; //the overall board, each inner board will be a string
   Move lastMove; //the move that was placed to get to this Gamestate
+  Piece lastPlayer;
 
  private:
 };
