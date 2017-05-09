@@ -1,3 +1,9 @@
+/*
+  SuperTicTacToe.h
+  This class is used to run a game of SuperTicTacToe. It creates a gamestate, 
+  then alternates between player x and player o. player input is defined by 
+  the enum USER, where as the computer is broken into the enums RANDOM and TREE
+ */
 #ifndef SUPERTICTACTOE_H
 #define SUPERTICTACTOE_H
 

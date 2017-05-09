@@ -1,3 +1,9 @@
+/*
+  This class records the current state of the game. It holds a board, which
+  the players are placing pieces on. It also evaluates a score of that board,
+  counts all of the possible moves a player can do, records the current turn, 
+  and tell when a game is no longer playable (either won or tied).
+ */
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 

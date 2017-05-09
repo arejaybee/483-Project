@@ -1,5 +1,14 @@
 #include "minimax.hpp"
 
+/*
+  This file contains the minimax tree function. It has been updated to use a 
+  negamax tree, because the algorithm seems more efficient.
+  minimax() calls negamax(), which will then recur until it hits the maximum 
+  depth (defined when calling minimax). Negamax will alternate between picking
+  the best move and worst move as defined by GameState's "evaluate score" 
+  function
+ */
+
 #include <limits>
 #include <stdexcept>
 
@@ -8,13 +17,11 @@
 
 namespace
 {
-
-
 static int
 negamax(const GameState &node, const std::size_t depth, int alpha,
         const int beta, const Piece piece)
 {
-  const std::size_t NUM_THREADS = 11;
+  const std::size_t NUM_THREADS = 9;
 
     // at the bottom of the tree, evaluate their score
     if (depth == 0)
@@ -43,10 +50,8 @@ negamax(const GameState &node, const std::size_t depth, int alpha,
             alpha = std::max(alpha, v);
         }
     }
-
     return best_value;
 }
-
 
 }
 

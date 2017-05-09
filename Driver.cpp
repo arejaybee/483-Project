@@ -22,8 +22,9 @@ int main()
 	  {
 	    winners[3]++;
 	  }
-      }
-      cout<<"The results are: "<<winners[0]<<" Wins for Rando\n"<<winners[1]<<"Tie games\n"<<winners[2]<<" Wins for AI\n"<<winners[3]<<" This should be 0"<<endl;*/
+	  //Moved this into the loop so that you can stop at any point and still have data
+	  cout<<"The results are: "<<winners[0]<<" Wins for Rando\n"<<winners[1]<<"Tie games\n"<<winners[2]<<" Wins for AI\n"<<winners[3]<<" This should be 0"<<endl;
+	  }*/
     sttt.play();
     return 0;
 }
